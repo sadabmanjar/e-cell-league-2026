@@ -50,12 +50,16 @@ export default function TrackDetailPage({ params }: { params: { slug: string } }
             </p>
             
             <div className="flex flex-wrap gap-4">
-              <Button size="lg" className="px-8 text-base h-12">
-                Register for {track.title}
-              </Button>
-              <Button size="lg" variant="outline" className="px-8 text-base h-12">
-                Download Rulebook
-              </Button>
+              <Link href="/passes">
+                <Button size="lg" className="px-8 text-base h-12">
+                  Register for {track.title}
+                </Button>
+              </Link>
+              <Link href="/league">
+                <Button size="lg" variant="outline" className="px-8 text-base h-12">
+                  View Full Rules
+                </Button>
+              </Link>
             </div>
           </Container>
         </Section>

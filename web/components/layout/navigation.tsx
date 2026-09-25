@@ -18,7 +18,7 @@ export function Navigation() {
           
           {/* Desktop Nav */}
           <div className="hidden md:flex gap-6">
-            <Link href="/competitions" className="text-sm font-medium text-text-secondary transition-colors hover:text-white">Competitions</Link>
+            <Link href="/tracks" className="text-sm font-medium text-text-secondary transition-colors hover:text-white">Competitions</Link>
             <Link href="/leaderboard" className="text-sm font-medium text-text-secondary transition-colors hover:text-white">Leaderboard</Link>
             <Link href="/schedule" className="text-sm font-medium text-text-secondary transition-colors hover:text-white">Schedule</Link>
             <Link href="/teams" className="text-sm font-medium text-text-secondary transition-colors hover:text-white">Teams</Link>
@@ -26,8 +26,8 @@ export function Navigation() {
         </div>
         
         <div className="hidden md:flex items-center gap-4">
-          <Button variant="ghost" className="text-text-secondary">Login</Button>
-          <Button variant="default">Register Now</Button>
+          <a href="http://localhost:3001"><Button variant="ghost" className="text-text-secondary">Login</Button></a>
+          <Link href="/passes" passHref><Button variant="default">Register Now</Button></Link>
         </div>
 
         <button
@@ -53,13 +53,13 @@ export function Navigation() {
             id="mobile-menu"
           >
             <div className="flex flex-col space-y-4 py-6">
-              <Link href="/competitions" onClick={() => setIsOpen(false)} className="text-sm font-medium text-text-primary">Competitions</Link>
+              <Link href="/tracks" onClick={() => setIsOpen(false)} className="text-sm font-medium text-text-primary">Competitions</Link>
               <Link href="/leaderboard" onClick={() => setIsOpen(false)} className="text-sm font-medium text-text-primary">Leaderboard</Link>
               <Link href="/schedule" onClick={() => setIsOpen(false)} className="text-sm font-medium text-text-primary">Schedule</Link>
               <Link href="/teams" onClick={() => setIsOpen(false)} className="text-sm font-medium text-text-primary">Teams</Link>
               <div className="h-px bg-border my-2" />
-              <Button variant="outline" className="w-full justify-center" onClick={() => setIsOpen(false)}>Login</Button>
-              <Button variant="default" className="w-full justify-center" onClick={() => setIsOpen(false)}>Register Now</Button>
+              <a href="http://localhost:3001" className="w-full"><Button variant="outline" className="w-full justify-center" onClick={() => setIsOpen(false)}>Login</Button></a>
+              <Link href="/passes" passHref className="w-full"><Button variant="default" className="w-full justify-center" onClick={() => setIsOpen(false)}>Register Now</Button></Link>
             </div>
           </motion.div>
         )}

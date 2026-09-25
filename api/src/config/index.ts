@@ -18,7 +18,7 @@ const envSchema = z.object({
   JWT_SECRET: z
     .string()
     .min(32, "JWT_SECRET must be at least 32 characters long — use a strong random value"),
-  CORS_ORIGIN: z.string().url("CORS_ORIGIN must be a valid URL").default("http://localhost:3000"),
+  CORS_ORIGIN: z.string().min(1, "CORS_ORIGIN must be provided").default("http://localhost:3000"),
   RAZORPAY_KEY_ID: z.string().min(1, "RAZORPAY_KEY_ID is required"),
   RAZORPAY_KEY_SECRET: z.string().min(1, "RAZORPAY_KEY_SECRET is required"),
 });
@@ -38,7 +38,7 @@ export const config = {
   nodeEnv: parsed.data.NODE_ENV,
   databaseUrl: parsed.data.DATABASE_URL,
   jwtSecret: parsed.data.JWT_SECRET,
-  corsOrigin: parsed.data.CORS_ORIGIN,
+  corsOrigin: parsed.data.CORS_ORIGIN.split(",").map(url => url.trim()),
   razorpayKeyId: parsed.data.RAZORPAY_KEY_ID,
   razorpayKeySecret: parsed.data.RAZORPAY_KEY_SECRET,
 } as const;

@@ -25,9 +25,13 @@ export default function LoginPage() {
         }
       )
       // Store auth token and redirect
-      localStorage.setItem("admin_token", res.token)
-      localStorage.setItem("admin_user", JSON.stringify(res.user))
-      router.push("/dashboard")
+      if (res.token) {
+        localStorage.setItem("admin_token", res.token)
+        localStorage.setItem("admin_user", JSON.stringify(res.user))
+        window.location.href = "/dashboard"
+      } else {
+        throw new Error("No token received from server")
+      }
     } catch (err: any) {
       setError(err.message || "Invalid credentials. Please try again.")
     } finally {

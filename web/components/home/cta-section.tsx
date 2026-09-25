@@ -2,6 +2,7 @@
 import * as React from "react"
 import { Container, Section } from "@/components/ui/container"
 import { Button } from "@/components/ui/button"
+import Link from "next/link"
 
 export function FinalCTASection() {
   return (
@@ -16,12 +17,16 @@ export function FinalCTASection() {
           Registrations for the E-Cell League 2026 are now open. Gather your best teams, pick your tracks, and start building.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <Button size="lg" className="bg-white text-primary hover:bg-white/90 text-base h-12 px-8 font-semibold">
-            Register Your E-Cell
-          </Button>
-          <Button size="lg" variant="outline" className="text-white border-white hover:bg-white/10 text-base h-12 px-8">
-            Download Prospectus
-          </Button>
+          <Link href="/passes" passHref>
+            <Button size="lg" className="bg-white text-primary hover:bg-white/90 text-base h-12 px-8 font-semibold">
+              Register Your E-Cell
+            </Button>
+          </Link>
+          <Link href="/league" passHref>
+            <Button size="lg" variant="outline" className="text-white border-white hover:bg-white/10 text-base h-12 px-8">
+              Download Prospectus
+            </Button>
+          </Link>
         </div>
       </Container>
     </Section>

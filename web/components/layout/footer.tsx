@@ -19,7 +19,7 @@ export function Footer() {
             <h4 className="text-sm font-semibold text-white mb-4">Quick Links</h4>
             <ul className="space-y-3">
               <li><Link href="/about" className="text-sm text-text-secondary hover:text-white transition-colors">About Us</Link></li>
-              <li><Link href="/competitions" className="text-sm text-text-secondary hover:text-white transition-colors">Competitions</Link></li>
+              <li><Link href="/tracks" className="text-sm text-text-secondary hover:text-white transition-colors">Competitions</Link></li>
               <li><Link href="/leaderboard" className="text-sm text-text-secondary hover:text-white transition-colors">Leaderboard</Link></li>
               <li><Link href="/guidelines" className="text-sm text-text-secondary hover:text-white transition-colors">Guidelines</Link></li>
             </ul>

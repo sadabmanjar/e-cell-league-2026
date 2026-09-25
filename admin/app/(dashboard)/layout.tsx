@@ -1,5 +1,6 @@
 "use client"
 import * as React from "react"
+import { useRouter, usePathname } from "next/navigation"
 import { Sidebar } from "@/components/layout/sidebar"
 import { Topbar } from "@/components/layout/topbar"
 
@@ -9,6 +10,17 @@ export default function AdminDashboardLayout({
   children: React.ReactNode
 }) {
   const [sidebarOpen, setSidebarOpen] = React.useState(false)
+  const router = useRouter()
+  const pathname = usePathname()
+
+  React.useEffect(() => {
+    if (typeof window !== "undefined") {
+      const token = localStorage.getItem("admin_token")
+      if (!token) {
+        router.push("/login")
+      }
+    }
+  }, [pathname, router])
 
   return (
     <div className="flex h-screen bg-background overflow-hidden relative">
