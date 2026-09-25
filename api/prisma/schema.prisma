@@ -1,0 +1,365 @@
+// This is your Prisma schema file
+// Learn more: https://pris.ly/d/prisma-schema
+// Run `npm run db:generate` after modifying this file.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ── Enums ─────────────────────────────────────────────────────────────────────
+
+enum AdminRole {
+  SUPER_ADMIN
+  EVENT_ADMIN
+  COMPETITION_MANAGER
+  SCORE_MANAGER
+}
+
+enum PassType {
+  THREE_COMPETITION
+  FIVE_COMPETITION
+}
+
+enum RegistrationStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+enum PaymentStatus {
+  CREATED
+  PENDING
+  SUCCESS
+  FAILED
+  REFUNDED
+}
+
+enum ResultStatus {
+  DRAFT
+  PUBLISHED
+}
+
+enum ScheduleStatus {
+  UPCOMING
+  LIVE
+  COMPLETED
+  CANCELLED
+}
+
+enum AnnouncementPriority {
+  LOW
+  MEDIUM
+  HIGH
+  URGENT
+}
+
+enum AnnouncementStatus {
+  DRAFT
+  PUBLISHED
+  ARCHIVED
+}
+
+// ── Auth & Users ──────────────────────────────────────────────────────────────
+
+model AdminUser {
+  id               String    @id @default(uuid())
+  email            String    @unique
+  password         String
+  name             String
+  role             AdminRole @default(EVENT_ADMIN)
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+
+  resultsCreated   Result[]  @relation("ResultCreatedBy")
+  resultsUpdated   Result[]  @relation("ResultUpdatedBy")
+
+  @@index([email])
+}
+
+model User {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  password  String
+  name      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  eCell     ECell?
+
+  @@index([email])
+}
+
+// ── Hierarchy & Registration ──────────────────────────────────────────────────
+
+model College {
+  id        String   @id @default(uuid())
+  name      String   @unique
+  city      String
+  state     String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  eCell     ECell?
+}
+
+model ECell {
+  id              String   @id @default(uuid())
+  name            String
+  slug            String   @unique @default(uuid())
+  logo            String?
+  officialEmail   String   @unique
+  contactNumber   String
+  socialLinks     String?
+  collegeId       String   @unique
+  coordinatorId   String   @unique
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  college         College  @relation(fields: [collegeId], references: [id], onDelete: Cascade)
+  coordinator     User     @relation(fields: [coordinatorId], references: [id])
+  registrations   Registration[]
+  leaguePoints    LeaguePoint[]
+  leaderboard     Leaderboard?
+
+  @@index([officialEmail])
+  @@index([collegeId])
+}
+
+model Registration {
+  id             String             @id @default(uuid())
+  eCellId        String
+  passType       PassType
+  status         RegistrationStatus @default(PENDING)
+  createdAt      DateTime           @default(now())
+  updatedAt      DateTime           @updatedAt
+
+  eCell          ECell              @relation(fields: [eCellId], references: [id], onDelete: Cascade)
+  participants   Participant[]
+  competitions   RegistrationCompetition[]
+  payment        Payment?
+  
+  @@index([eCellId])
+}
+
+model Participant {
+  id             String       @id @default(uuid())
+  registrationId String
+  name           String
+  email          String
+  phone          String
+  collegeIdNo    String
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+
+  registration   Registration @relation(fields: [registrationId], references: [id], onDelete: Cascade)
+  
+  @@index([registrationId])
+  @@index([email])
+}
+
+model Payment {
+  id                String       @id @default(uuid())
+  registrationId    String       @unique
+  amount            Float
+  currency          String       @default("INR")
+  status            PaymentStatus @default(CREATED)
+  razorpayOrderId   String?      @unique
+  razorpayPaymentId String?      @unique
+  razorpaySignature String?
+  createdAt         DateTime     @default(now())
+  updatedAt         DateTime     @updatedAt
+
+  registration      Registration @relation(fields: [registrationId], references: [id], onDelete: Cascade)
+  
+  @@index([registrationId])
+  @@index([razorpayOrderId])
+  @@index([razorpayPaymentId])
+}
+
+// ── Competitions & Results ────────────────────────────────────────────────────
+
+model Competition {
+  id              String       @id @default(uuid())
+  name            String       @unique
+  slug            String       @unique
+  description     String
+  format          String?
+  teamSize        String?
+  isPublished     Boolean      @default(true)
+  createdAt       DateTime     @default(now())
+  updatedAt       DateTime     @updatedAt
+
+  rounds          CompetitionRound[]
+  registrations   RegistrationCompetition[]
+  results         Result[]
+  pointsConfigs   PointsConfig[]
+  leaguePoints    LeaguePoint[]
+  schedules       Schedule[]
+}
+
+model RegistrationCompetition {
+  id             String       @id @default(uuid())
+  registrationId String
+  competitionId  String
+  createdAt      DateTime     @default(now())
+
+  registration   Registration @relation(fields: [registrationId], references: [id], onDelete: Cascade)
+  competition    Competition  @relation(fields: [competitionId], references: [id], onDelete: Cascade)
+
+  @@unique([registrationId, competitionId])
+  @@index([registrationId])
+  @@index([competitionId])
+}
+
+model CompetitionRound {
+  id             String       @id @default(uuid())
+  competitionId  String
+  name           String
+  order          Int
+  date           DateTime?
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+
+  competition    Competition  @relation(fields: [competitionId], references: [id], onDelete: Cascade)
+  results        Result[]
+  schedules      Schedule[]
+
+  @@index([competitionId])
+}
+
+model Result {
+  id             String       @id @default(uuid())
+  competitionId  String
+  roundId        String
+  registrationId String
+  score          Float
+  rank           Int?
+  feedback       String?
+  status         ResultStatus @default(DRAFT)
+  createdById    String?
+  updatedById    String?
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+
+  competition    Competition      @relation(fields: [competitionId], references: [id], onDelete: Cascade)
+  round          CompetitionRound @relation(fields: [roundId], references: [id], onDelete: Cascade)
+  createdBy      AdminUser?       @relation("ResultCreatedBy", fields: [createdById], references: [id])
+  updatedBy      AdminUser?       @relation("ResultUpdatedBy", fields: [updatedById], references: [id])
+  leaguePoint    LeaguePoint?
+
+  @@unique([roundId, registrationId])
+  @@index([competitionId])
+  @@index([roundId])
+  @@index([registrationId])
+  @@index([status])
+}
+
+model LeaguePoint {
+  id              String      @id @default(uuid())
+  resultId        String      @unique
+  eCellId         String
+  competitionId   String
+  points          Int
+  rank            Int?
+  configId        String?     // Which PointsConfig row was applied
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+
+  result          Result      @relation(fields: [resultId], references: [id], onDelete: Cascade)
+  config          PointsConfig? @relation(fields: [configId], references: [id])
+  eCell           ECell       @relation(fields: [eCellId], references: [id], onDelete: Cascade)
+  competition     Competition @relation(fields: [competitionId], references: [id], onDelete: Cascade)
+
+  @@index([resultId])
+  @@index([eCellId])
+  @@index([competitionId])
+}
+
+model Leaderboard {
+  id              String      @id @default(uuid())
+  eCellId         String      @unique
+  totalPoints     Int         @default(0)
+  globalRank      Int?
+  wins            Int         @default(0)  // Number of 1st-place finishes
+  topThreeCount   Int         @default(0)  // Tie-breaker: top 3 finishes
+  lastUpdated     DateTime    @default(now())
+
+  eCell           ECell       @relation(fields: [eCellId], references: [id], onDelete: Cascade)
+
+  @@index([eCellId])
+  @@index([totalPoints])
+}
+
+// ── General ───────────────────────────────────────────────────────────────────
+
+model Schedule {
+  id             String           @id @default(uuid())
+  title          String
+  description    String?
+  competitionId  String?
+  roundId        String?
+  date           DateTime
+  startTime      DateTime
+  endTime        DateTime
+  venue          String?
+  status         ScheduleStatus   @default(UPCOMING)
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
+
+  competition    Competition?     @relation(fields: [competitionId], references: [id], onDelete: SetNull)
+  round          CompetitionRound? @relation(fields: [roundId], references: [id], onDelete: SetNull)
+
+  @@index([competitionId])
+  @@index([roundId])
+}
+
+model Announcement {
+  id             String               @id @default(uuid())
+  title          String
+  description    String
+  priority       AnnouncementPriority @default(LOW)
+  status         AnnouncementStatus   @default(DRAFT)
+  publishedAt    DateTime?
+  createdAt      DateTime             @default(now())
+  updatedAt      DateTime             @updatedAt
+  
+  @@index([status])
+}
+
+// ── Points Engine Config ──────────────────────────────────────────────────────
+
+// Admin-configurable: maps a rank achieved in a competition to a points value.
+// If no row exists for a given rank, the engine awards 0 points.
+// Populated by admin BEFORE results are published.
+model PointsConfig {
+  id              String      @id @default(uuid())
+  competitionId   String
+  rank            Int         // 1 = winner, 2 = runner-up, etc.
+  points          Int         // Points awarded for this rank
+  label           String?     // Optional display label (e.g. "Winner", "Runner-up")
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+
+  competition     Competition @relation(fields: [competitionId], references: [id], onDelete: Cascade)
+  leaguePoints    LeaguePoint[]
+
+  @@unique([competitionId, rank])
+  @@index([competitionId])
+}
+
+// Admin-configurable: defines the sequence used to break ties in total points.
+// Lower priority = checked first. Admins can add/remove/reorder entries.
+model TiebreakerConfig {
+  id              String      @id @default(uuid())
+  priority        Int         @unique  // 1 = checked first
+  rule            String      // e.g. "MOST_WINS", "MOST_TOP_THREE", "FLAGSHIP_SCORE"
+  label           String      // Human-readable description
+  isActive        Boolean     @default(true)
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+}
