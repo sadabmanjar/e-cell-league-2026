@@ -39,9 +39,14 @@ export class CompetitionService {
     });
   }
 
-  static async create(data: CreateCompetitionInput) {
-    return prisma.competition.create({ data });
-  }
+static async create(data: CreateCompetitionInput) {
+  return prisma.competition.create({
+    data: {
+      ...data,
+      isPublished: data.isPublished ?? false,
+    },
+  });
+}
 
   static async update(id: string, data: UpdateCompetitionInput) {
     // Strip undefined values to satisfy Prisma exactOptionalPropertyTypes

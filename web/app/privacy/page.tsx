@@ -30,7 +30,7 @@ export default function PrivacyPage() {
               {[
                 {
                   title: "1. Information We Collect",
-                  content: "We collect personal information when you register for E-Cell League 2026. This includes your name, college name, email address, contact number, and the names and details of your team members. Payment information is processed securely through Razorpay and is not stored on our servers.",
+                  content: "We collect personal information when you register for E-Cell League 2026. This includes your name, college name, email address, contact number, and the names and details of your team members. Payment information is processed securely through our payment provider and is not stored on our servers.",
                 },
                 {
                   title: "2. How We Use Your Information",

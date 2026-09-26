@@ -38,7 +38,7 @@ export default function TermsPage() {
                 },
                 {
                   title: "3. Registration & Payment",
-                  content: "Registration is confirmed only upon successful payment of the League Pass fee via the official payment gateway (Razorpay). Fees are non-refundable once registration is confirmed. In the event of cancellation by the organizers, a full refund will be issued.",
+                  content: "Registration is confirmed only upon successful payment of the League Pass fee via the official payment gateway. Fees are non-refundable once registration is confirmed. In the event of cancellation by the organizers, a full refund will be issued.",
                 },
                 {
                   title: "4. Track Selection (3-Track Pass)",

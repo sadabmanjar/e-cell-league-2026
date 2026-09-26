@@ -5,8 +5,7 @@ export class PaymentController {
   static async verifyPayment(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
       const { paymentId } = req.body;
-      const user = req.user as any;
-
+const user = (req as Request & { user?: { id: string } }).user;
       const payment = await prisma.payment.findUnique({
         where: { id: paymentId },
         include: { registration: true },
@@ -43,8 +42,7 @@ export class PaymentController {
   static async rejectPayment(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
       const { paymentId, reason } = req.body;
-      const user = req.user as any;
-
+const user = (req as Request & { user?: { id: string } }).user;
       const payment = await prisma.payment.findUnique({
         where: { id: paymentId },
       });
