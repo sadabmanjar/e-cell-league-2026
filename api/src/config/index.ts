@@ -18,7 +18,7 @@ const envSchema = z.object({
   JWT_SECRET: z
     .string()
     .min(32, "JWT_SECRET must be at least 32 characters long — use a strong random value"),
-  CORS_ORIGIN: z.string().min(1, "CORS_ORIGIN must be provided").default("http://localhost:3000"),
+  CORS_ORIGIN: z.string().min(1, "CORS_ORIGIN must be provided").default("http://localhost:3000,http://localhost:3001"),
   RAZORPAY_KEY_ID: z.string().min(1, "RAZORPAY_KEY_ID is required"),
   RAZORPAY_KEY_SECRET: z.string().min(1, "RAZORPAY_KEY_SECRET is required"),
 });

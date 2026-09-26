@@ -10,15 +10,15 @@ import { Footer } from "@/components/layout/footer"
 import { CheckCircle2, ChevronRight, Clock, Users, BookOpen, AlertTriangle } from "lucide-react"
 import Link from "next/link"
 
-export default function TrackDetailPage({ params }: { params: { slug: string } }) {
-  const track = tracksData.find(t => t.slug === params.slug);
+export default function TrackDetailPage({ params }: { params: Promise<{ slug: string }> }) {
+  const resolvedParams = React.use(params);
+  const track = tracksData.find(t => t.slug === resolvedParams.slug);
   
   if (!track) {
     notFound();
   }
 
-  // eslint-disable-next-line react-hooks/static-components
-  const Icon = getIconComponent(track.iconName);
+  const IconComponent = getIconComponent(track.iconName);
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
@@ -28,12 +28,12 @@ export default function TrackDetailPage({ params }: { params: { slug: string } }
         {/* Hero Section */}
         <Section className="pt-24 pb-16 bg-surface-alt border-b border-border relative overflow-hidden">
           <div className="absolute top-0 right-0 p-32 opacity-5 pointer-events-none">
-            <Icon className="w-96 h-96" />
+            {React.createElement(IconComponent, { className: "w-96 h-96" })}
           </div>
           <Container className="relative z-10">
             <div className="flex flex-col md:flex-row gap-6 items-start md:items-center mb-8">
               <div className="w-16 h-16 rounded-xl bg-surface flex items-center justify-center border border-primary/30 text-primary">
-                <Icon className="w-8 h-8" />
+                {React.createElement(IconComponent, { className: "w-8 h-8" })}
               </div>
               <div>
                 <div className="flex items-center gap-2 text-sm text-primary mb-2 font-medium">

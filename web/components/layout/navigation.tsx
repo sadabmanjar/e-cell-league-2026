@@ -26,7 +26,6 @@ export function Navigation() {
         </div>
         
         <div className="hidden md:flex items-center gap-4">
-          <a href="http://localhost:3001"><Button variant="ghost" className="text-text-secondary">Login</Button></a>
           <Link href="/passes" passHref><Button variant="default">Register Now</Button></Link>
         </div>
 
@@ -58,7 +57,6 @@ export function Navigation() {
               <Link href="/schedule" onClick={() => setIsOpen(false)} className="text-sm font-medium text-text-primary">Schedule</Link>
               <Link href="/teams" onClick={() => setIsOpen(false)} className="text-sm font-medium text-text-primary">Teams</Link>
               <div className="h-px bg-border my-2" />
-              <a href="http://localhost:3001" className="w-full"><Button variant="outline" className="w-full justify-center" onClick={() => setIsOpen(false)}>Login</Button></a>
               <Link href="/passes" passHref className="w-full"><Button variant="default" className="w-full justify-center" onClick={() => setIsOpen(false)}>Register Now</Button></Link>
             </div>
           </motion.div>

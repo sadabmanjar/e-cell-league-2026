@@ -62,6 +62,7 @@ export function CompetitionSelector() {
               <Checkbox 
                 checked={isSelected}
                 disabled={isDisabled}
+                onChange={() => handleToggle(track.id)}
                 className="mt-1 pointer-events-none"
               />
               <div className="ml-3">

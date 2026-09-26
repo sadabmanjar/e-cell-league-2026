@@ -37,12 +37,32 @@ export const competitionSchema = z.object({
   selectedTracks: z.array(z.string()).min(1, "Select at least one track"),
 });
 
+export const paymentSchema = z.object({
+  utr: z.string().min(6, "UTR / Reference Number must be at least 6 characters").trim(),
+});
+
 export const registrationSchema = z.object({
   ...ecellSchema.shape,
   ...coordinatorSchema.shape,
   ...teamSchema.shape,
   ...passSchema.shape,
   ...competitionSchema.shape,
+  ...paymentSchema.shape,
+}).superRefine((data, ctx) => {
+  if (data.passType === "3-pass" && data.selectedTracks.length !== 3) {
+    ctx.addIssue({
+      code: z.ZodIssueCode.custom,
+      message: "3-Track Pass requires exactly 3 tracks to be selected.",
+      path: ["selectedTracks"],
+    });
+  }
+  if (data.passType === "5-pass" && data.selectedTracks.length !== 5) {
+    ctx.addIssue({
+      code: z.ZodIssueCode.custom,
+      message: "5-Track Pass requires all 5 tracks to be selected.",
+      path: ["selectedTracks"],
+    });
+  }
 });
 
 export type RegistrationFormData = z.infer<typeof registrationSchema>;

@@ -133,9 +133,11 @@ export class RegistrationService {
       await tx.payment.create({
         data: {
           registrationId: registration.id,
-          amount: data.passType === "5-pass" ? 130000 : 100000, // in paise
+          amount: data.passType === "5-pass" ? 1300 : 1000, // INR
           currency: "INR",
-          status: "PENDING"
+          status: "PENDING_VERIFICATION",
+          utr: data.utr,
+          paymentMethod: "MANUAL_QR"
         }
       });
 

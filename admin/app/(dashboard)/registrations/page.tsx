@@ -17,7 +17,7 @@ interface Registration {
     college: { name: string; city: string };
   };
   _count: { participants: number };
-  payment?: { status: string; amount: number };
+  payment?: { id: string; status: string; amount: number; utr: string | null; paymentMethod: string };
 }
 
 export default function RegistrationsPage() {
@@ -47,6 +47,33 @@ export default function RegistrationsPage() {
     r.eCell?.college?.name?.toLowerCase().includes(search.toLowerCase()) ||
     r.id.toLowerCase().includes(search.toLowerCase())
   )
+
+  const handleVerify = async (paymentId: string) => {
+    if (!confirm("Are you sure you want to verify this payment?")) return;
+    try {
+      await fetchClient("/payments/verify", {
+        method: "POST",
+        body: JSON.stringify({ paymentId })
+      });
+      window.location.reload();
+    } catch (err: any) {
+      alert(err.message || "Failed to verify");
+    }
+  };
+
+  const handleReject = async (paymentId: string) => {
+    const reason = prompt("Enter reason for rejection:");
+    if (!reason) return;
+    try {
+      await fetchClient("/payments/reject", {
+        method: "POST",
+        body: JSON.stringify({ paymentId, reason })
+      });
+      window.location.reload();
+    } catch (err: any) {
+      alert(err.message || "Failed to reject");
+    }
+  };
 
   return (
     <div className="space-y-6">
@@ -81,6 +108,7 @@ export default function RegistrationsPage() {
                   <th className="px-4 py-3 font-medium">Payment</th>
                   <th className="px-4 py-3 font-medium">Status</th>
                   <th className="px-4 py-3 font-medium">Registered</th>
+                  <th className="px-4 py-3 font-medium text-right">Actions</th>
                 </tr>
               </thead>
               <tbody>
@@ -105,11 +133,18 @@ export default function RegistrationsPage() {
                     </td>
                     <td className="px-4 py-3">
                       {reg.payment ? (
-                        <span className="flex items-center gap-1 text-text-secondary">
-                          <CreditCard className="w-3.5 h-3.5" />
-                          {reg.payment.status}
-                          {reg.payment.amount ? ` · ₹${(reg.payment.amount / 100).toLocaleString()}` : ""}
-                        </span>
+                        <div className="flex flex-col gap-1">
+                          <span className="flex items-center gap-1 text-text-secondary">
+                            <CreditCard className="w-3.5 h-3.5" />
+                            {reg.payment.status}
+                            {reg.payment.amount ? ` · ₹${reg.payment.amount.toLocaleString()}` : ""}
+                          </span>
+                          {reg.payment.utr && (
+                            <span className="text-xs text-primary bg-primary/10 px-2 py-0.5 rounded w-fit">
+                              UTR: {reg.payment.utr}
+                            </span>
+                          )}
+                        </div>
                       ) : (
                         <span className="text-text-secondary text-xs">No payment</span>
                       )}
@@ -119,6 +154,14 @@ export default function RegistrationsPage() {
                     </td>
                     <td className="px-4 py-3 text-text-secondary text-xs">
                       {new Date(reg.createdAt).toLocaleDateString("en-IN", { day: "2-digit", month: "short", year: "numeric" })}
+                    </td>
+                    <td className="px-4 py-3 text-right">
+                      {reg.payment && reg.payment.status === "PENDING_VERIFICATION" && (
+                        <div className="flex justify-end gap-2">
+                          <button onClick={() => handleVerify(reg.payment!.id)} className="text-xs px-3 py-1 bg-green-500/10 text-green-500 hover:bg-green-500/20 rounded">Verify</button>
+                          <button onClick={() => handleReject(reg.payment!.id)} className="text-xs px-3 py-1 bg-red-500/10 text-red-500 hover:bg-red-500/20 rounded">Reject</button>
+                        </div>
+                      )}
                     </td>
                   </tr>
                 ))}

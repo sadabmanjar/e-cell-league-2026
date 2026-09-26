@@ -33,8 +33,9 @@ enum RegistrationStatus {
 
 enum PaymentStatus {
   CREATED
-  PENDING
-  SUCCESS
+  PENDING_VERIFICATION
+  VERIFIED
+  REJECTED
   FAILED
   REFUNDED
 }
@@ -167,18 +168,19 @@ model Payment {
   registrationId    String       @unique
   amount            Float
   currency          String       @default("INR")
-  status            PaymentStatus @default(CREATED)
-  razorpayOrderId   String?      @unique
-  razorpayPaymentId String?      @unique
-  razorpaySignature String?
+  status            PaymentStatus @default(PENDING_VERIFICATION)
+  paymentMethod     String       @default("MANUAL_QR")
+  utr               String?      @unique
+  verifiedAt        DateTime?
+  verifiedBy        String?
+  rejectionReason   String?
   createdAt         DateTime     @default(now())
   updatedAt         DateTime     @updatedAt
 
   registration      Registration @relation(fields: [registrationId], references: [id], onDelete: Cascade)
   
   @@index([registrationId])
-  @@index([razorpayOrderId])
-  @@index([razorpayPaymentId])
+  @@index([utr])
 }
 
 // ── Competitions & Results ────────────────────────────────────────────────────

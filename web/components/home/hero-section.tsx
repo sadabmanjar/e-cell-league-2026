@@ -9,6 +9,16 @@ import { Float } from "@react-three/drei/core/Float"
 import { MeshTransmissionMaterial } from "@react-three/drei/core/MeshTransmissionMaterial"
 import { Environment } from "@react-three/drei/core/Environment"
 import * as THREE from "three"
+import Link from "next/link"
+
+// Suppress THREE.Clock deprecation warning from R3F until it updates internally
+if (typeof console !== 'undefined') {
+  const originalWarn = console.warn;
+  console.warn = (...args) => {
+    if (typeof args[0] === 'string' && args[0].includes('THREE.Clock')) return;
+    originalWarn(...args);
+  };
+}
 
 // A sleek, premium crystalline structure for the hero visual
 function PremiumCrystal() {
@@ -99,12 +109,12 @@ export function HeroSection() {
     visible: { 
       opacity: 1, 
       y: 0,
-      transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] as any } // Smooth elegant ease
+      transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } // Smooth elegant ease
     }
   }
 
   return (
-    <section className="relative overflow-hidden pt-32 pb-20 lg:pt-48 lg:pb-32 border-b border-border">
+    <section className="relative overflow-hidden pt-10 pb-20 lg:pt-20 lg:pb-32 border-b border-border">
       <div className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-primary/5 via-background to-background" />
       
       <Container className="relative z-10">
@@ -130,12 +140,16 @@ export function HeroSection() {
             </motion.p>
             
             <motion.div variants={itemVariants} className="flex flex-wrap gap-4 pt-4">
-              <Button size="lg" className="text-base h-12 px-8 transition-transform hover:scale-105 active:scale-95 duration-200" onClick={() => window.location.href = '/passes'}>
-                Register Your Team
-              </Button>
-              <Button size="lg" variant="outline" className="text-base h-12 px-8 transition-transform hover:scale-105 active:scale-95 duration-200" onClick={() => window.location.href = '/league'}>
-                View League Rules
-              </Button>
+              <Link href="/passes">
+                <Button size="lg" className="text-base h-12 px-8 transition-transform hover:scale-105 active:scale-95 duration-200">
+                  Register Your Team
+                </Button>
+              </Link>
+              <Link href="/league">
+                <Button size="lg" variant="outline" className="text-base h-12 px-8 transition-transform hover:scale-105 active:scale-95 duration-200">
+                  View League Rules
+                </Button>
+              </Link>
             </motion.div>
             
             <motion.div variants={itemVariants} className="grid grid-cols-3 gap-6 pt-12 border-t border-border mt-8">

@@ -34,6 +34,7 @@ export function RegistrationForm() {
   const [currentStep, setCurrentStep] = React.useState(0)
   const [isSubmitting, setIsSubmitting] = React.useState(false)
   const [isSuccess, setIsSuccess] = React.useState(false)
+  const [successData, setSuccessData] = React.useState<any>(null)
   const router = useRouter()
 
   const methods = useForm<RegistrationFormData>({
@@ -90,9 +91,15 @@ export function RegistrationForm() {
     setIsSubmitting(true)
     
     try {
-      await fetchClient("/registrations/onboard", {
+      const res = await fetchClient<any>("/registrations/onboard", {
         method: "POST",
         body: JSON.stringify(data)
+      })
+      setSuccessData({
+        registrationId: res.registrationId,
+        passType: data.passType,
+        utr: data.utr,
+        ecellName: data.ecellName
       })
       setIsSuccess(true)
     } catch (err: any) {
@@ -102,15 +109,38 @@ export function RegistrationForm() {
     }
   }
 
-  if (isSuccess) {
+  if (isSuccess && successData) {
     return (
       <div className="py-20 flex flex-col items-center justify-center text-center animate-in fade-in zoom-in duration-500">
-        <div className="w-20 h-20 bg-green-500/20 rounded-full flex items-center justify-center mb-6">
-          <CheckCircle className="w-10 h-10 text-green-500" />
+        <div className="w-20 h-20 bg-yellow-500/20 rounded-full flex items-center justify-center mb-6 border border-yellow-500/30">
+          <CheckCircle className="w-10 h-10 text-yellow-500" />
         </div>
-        <h2 className="text-3xl font-bold text-white mb-4">Registration Successful!</h2>
-        <p className="text-text-secondary max-w-md mx-auto mb-8">
-          Your E-Cell has been successfully registered for the E-Cell League 2026. A confirmation email has been sent to the coordinator.
+        <h2 className="text-3xl font-bold text-white mb-2">Registration Submitted</h2>
+        <p className="text-yellow-500 font-medium mb-6">Payment Pending Verification</p>
+        
+        <div className="bg-surface-alt border border-border rounded-xl p-6 w-full max-w-md text-left mb-8">
+          <div className="space-y-3">
+            <div className="flex justify-between border-b border-border/50 pb-2">
+              <span className="text-text-secondary text-sm">Registration ID</span>
+              <span className="text-white font-mono text-sm">{successData.registrationId}</span>
+            </div>
+            <div className="flex justify-between border-b border-border/50 pb-2">
+              <span className="text-text-secondary text-sm">E-Cell</span>
+              <span className="text-white text-sm font-medium">{successData.ecellName}</span>
+            </div>
+            <div className="flex justify-between border-b border-border/50 pb-2">
+              <span className="text-text-secondary text-sm">Pass</span>
+              <span className="text-white text-sm">{successData.passType === "3-pass" ? "3-Track Pass" : "5-Track Pass"}</span>
+            </div>
+            <div className="flex justify-between">
+              <span className="text-text-secondary text-sm">UTR</span>
+              <span className="text-white font-mono text-sm">{successData.utr}</span>
+            </div>
+          </div>
+        </div>
+        
+        <p className="text-sm text-text-secondary max-w-md mx-auto mb-8">
+          Your E-Cell has been successfully registered for the E-Cell League 2026. A confirmation email will be sent to the coordinator once the payment UTR is verified by our team.
         </p>
         <Button onClick={() => router.push("/")}>Return to Home</Button>
       </div>
