@@ -22,12 +22,12 @@ export default function Home() {
       
       <main className="flex-1">
         <HeroSection />
-        <LeagueIntroSection />
-        <CompetitionTracksSection />
-        <GuidelinesPreviewSection />
         <HowItWorksSection />
-        <PassesSection />
         <PrizePoolSection />
+        <CompetitionTracksSection />
+        <LeagueIntroSection />
+        <GuidelinesPreviewSection />
+        <PassesSection />
         <TimelineSection />
         <LeaderboardPreviewSection />
         <FAQSection />

@@ -35,7 +35,7 @@ export function LeagueIntroSection() {
           <p className="text-lg text-text-secondary leading-relaxed">
             {LEAGUE.name} is a one-day multi-track entrepreneurship competition exclusively for {LEAGUE.totalTeams} registered E-Cell teams.
             Points are earned across {LEAGUE.totalTracks} parallel tracks, aggregated on a live leaderboard, and the team topping the standings wins the League Championship.
-          </p>
+          </p> 
         </div>
         
         <div className="grid md:grid-cols-3 gap-8">

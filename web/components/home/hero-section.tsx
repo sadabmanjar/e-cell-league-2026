@@ -114,32 +114,30 @@ export function HeroSection() {
   }
 
   return (
-    <section className="relative overflow-hidden pt-10 pb-20 lg:pt-20 lg:pb-32 border-b border-border">
+    <section className="flex items-center pt-10 pb-20 lg:pt-30 lg:pb-32 border-b border-border">
       <div className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-primary/5 via-background to-background" />
       
-      <Container className="relative z-10">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
+      <Container className="flex justify-center items-center z-10">
+        <div className="flex items-center w-full">
           <motion.div
             variants={containerVariants}
             initial="hidden"
             animate="visible"
-            className="flex flex-col space-y-6"
+            className="flex flex-col items-center text-center space-y-6 w-full max-w-4xl mx-auto"
           >
-            <motion.div variants={itemVariants}>
-              <div className="inline-flex items-center rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-sm font-medium text-primary backdrop-blur-sm w-fit">
-                E-Cell League · Season 1 · One Day Event
-              </div>
-            </motion.div>
             
             <motion.h1 variants={itemVariants} className="text-5xl lg:text-7xl font-bold tracking-tight text-white leading-tight">
-              IT&apos;S NOT JUST<br/> A LEAGUE.<br/> <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">A LAUNCH PAD.</span>
+              E-CELL <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">LEAGUE</span>
             </motion.h1>
             
-            <motion.p variants={itemVariants} className="text-lg text-text-secondary max-w-[500px] leading-relaxed">
-              Five tracks. Twelve teams. One championship. E-Cells compete in parallel across the toughest entrepreneurship challenges — all on a single day.
-            </motion.p>
+            <motion.div variants={itemVariants}>
+              <div className="inline-flex items-center rounded-full border border-primary/30 bg-primary/10 px-5 py-2 text-lg lg:text-xl font-medium text-primary backdrop-blur-sm w-fit mt-2">
+                PUT YOUR E-CELL TO THE TEST
+              </div>
+            </motion.div>
+
             
-            <motion.div variants={itemVariants} className="flex flex-wrap gap-4 pt-4">
+            <motion.div variants={itemVariants} className="flex flex-wrap justify-center gap-4 pt-6">
               <Link href="/passes">
                 <Button size="lg" className="text-base h-12 px-8 transition-transform hover:scale-105 active:scale-95 duration-200">
                   Register Your Team
@@ -152,23 +150,23 @@ export function HeroSection() {
               </Link>
             </motion.div>
             
-            <motion.div variants={itemVariants} className="grid grid-cols-3 gap-6 pt-12 border-t border-border mt-8">
-              <div>
-                <p className="text-3xl font-bold text-white">5</p>
-                <p className="text-xs text-text-secondary uppercase tracking-wider mt-1">Tracks</p>
+            <motion.div variants={itemVariants} className="grid grid-cols-1 sm:grid-cols-3 gap-8 w-full pt-12 border-t border-border mt-10">
+              <div className="flex flex-col items-center">
+                <p className="text-4xl lg:text-5xl font-bold text-white">5</p>
+                <p className="text-sm lg:text-base text-text-secondary uppercase tracking-wider mt-2">Tracks</p>
               </div>
-              <div>
-                <p className="text-3xl font-bold text-white">12</p>
-                <p className="text-xs text-text-secondary uppercase tracking-wider mt-1">Teams Only</p>
+              <div className="flex flex-col items-center">
+                <p className="text-4xl lg:text-5xl font-bold text-white">12</p>
+                <p className="text-sm lg:text-base text-text-secondary uppercase tracking-wider mt-2">Teams Only</p>
               </div>
-              <div>
-                <p className="text-3xl font-bold text-white">₹50K</p>
-                <p className="text-xs text-text-secondary uppercase tracking-wider mt-1">Prize Pool</p>
+              <div className="flex flex-col items-center">
+                <p className="text-4xl lg:text-5xl font-bold text-white">₹50K</p>
+                <p className="text-sm lg:text-base text-text-secondary uppercase tracking-wider mt-2">Prize Pool</p>
               </div>
             </motion.div>
           </motion.div>
           
-          <div className="h-[400px] lg:h-[600px] w-full relative">
+          {/* <div className="h-[400px] lg:h-[600px] w-full relative">
             {isMounted && (
               isMobile ? (
                 <StaticFallback />
@@ -189,7 +187,7 @@ export function HeroSection() {
                 </motion.div>
               )
             )}
-          </div>
+          </div> */}
         </div>
       </Container>
     </section>
