@@ -5,28 +5,48 @@ import { Menu, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { motion, AnimatePresence } from "framer-motion"
 
+import Image from "next/image"
+
 export function Navigation() {
   const [isOpen, setIsOpen] = React.useState(false)
 
   return (
     <nav className="sticky top-0 z-40 w-full border-b border-border bg-background/80 backdrop-blur-md" aria-label="Main Navigation">
-      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 md:px-6 lg:px-8">
-        <div className="flex items-center gap-6">
-          <Link href="/" className="flex items-center space-x-2">
-            <span className="text-xl font-bold text-white tracking-tight">E-Cell <span className="text-primary">League</span> 2026</span>
+      <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-4 md:px-6 lg:px-8">
+
+        {/* Left Side: AIC Logo */}
+        <div className="flex items-center">
+          <Link href="/" className="flex items-center gap-3">
+            <div className="bg-white/95 px-3 py-1.5 rounded-lg border border-white/20 shadow-md transition-all hover:bg-white">
+              <Image
+                src="/logo/aicrntu-color.png"
+                alt="AIC RNTU Logo"
+                width={200}
+                height={60}
+                className="h-10 md:h-11 w-auto object-contain"
+                priority
+              />
+            </div>
           </Link>
-          
-          {/* Desktop Nav */}
-          <div className="hidden md:flex gap-6">
+        </div>
+
+        {/* Middle & Right Side: E-Cell Logo & Navigation */}
+        <div className="hidden md:flex items-center gap-8">
+          {/* Desktop Nav Items */}
+          <div className="flex items-center gap-6">
             <Link href="/tracks" className="text-sm font-medium text-text-secondary transition-colors hover:text-white">Competitions</Link>
             <Link href="/leaderboard" className="text-sm font-medium text-text-secondary transition-colors hover:text-white">Leaderboard</Link>
             <Link href="/schedule" className="text-sm font-medium text-text-secondary transition-colors hover:text-white">Schedule</Link>
             <Link href="/teams" className="text-sm font-medium text-text-secondary transition-colors hover:text-white">Teams</Link>
           </div>
-        </div>
-        
-        <div className="hidden md:flex items-center gap-4">
-          <Link href="/passes" passHref><Button variant="default">Register Now</Button></Link>
+
+          {/* Right Side: E-Cell Brand & Action */}
+          <div className="flex items-center gap-4 border-l border-border/60 pl-6">
+            <Link href="/" className="flex items-center space-x-2">
+              <span className="text-base font-bold text-white tracking-tight">E-Cell <span className="text-primary">League</span> 2026</span>
+            </Link>
+            <Link href="/passes" passHref><Button variant="default">Register Now</Button></Link>
+          </div>
         </div>
 
         <button
@@ -43,7 +63,7 @@ export function Navigation() {
       {/* Mobile Nav */}
       <AnimatePresence>
         {isOpen && (
-          <motion.div 
+          <motion.div
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}

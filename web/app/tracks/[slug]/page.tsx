@@ -13,7 +13,7 @@ import Link from "next/link"
 export default function TrackDetailPage({ params }: { params: Promise<{ slug: string }> }) {
   const resolvedParams = React.use(params);
   const track = tracksData.find(t => t.slug === resolvedParams.slug);
-  
+
   if (!track) {
     notFound();
   }
@@ -23,7 +23,7 @@ export default function TrackDetailPage({ params }: { params: Promise<{ slug: st
   return (
     <div className="min-h-screen bg-background flex flex-col">
       <Navigation />
-      
+
       <main className="flex-1">
         {/* Hero Section */}
         <Section className="pt-24 pb-16 bg-surface-alt border-b border-border relative overflow-hidden">
@@ -44,34 +44,22 @@ export default function TrackDetailPage({ params }: { params: Promise<{ slug: st
                 <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-white">{track.title}</h1>
               </div>
             </div>
-            
+
             <p className="text-xl text-text-secondary max-w-3xl leading-relaxed mb-10">
               {track.overview}
             </p>
-            
-            <div className="flex flex-wrap gap-4">
-              <Link href="/passes">
-                <Button size="lg" className="px-8 text-base h-12">
-                  Register for {track.title}
-                </Button>
-              </Link>
-              <Link href="/league">
-                <Button size="lg" variant="outline" className="px-8 text-base h-12">
-                  View Full Rules
-                </Button>
-              </Link>
-            </div>
+
           </Container>
         </Section>
-        
+
         {/* Detail Sections */}
         <Section className="bg-background">
           <Container>
             <div className="grid lg:grid-cols-3 gap-12">
-              
+
               {/* Main Content */}
               <div className="lg:col-span-2 space-y-16">
-                
+
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -86,7 +74,7 @@ export default function TrackDetailPage({ params }: { params: Promise<{ slug: st
                     {track.preparation}
                   </p>
                 </motion.div>
-                
+
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -141,9 +129,9 @@ export default function TrackDetailPage({ params }: { params: Promise<{ slug: st
                     </ul>
                   </div>
                 </motion.div>
-                
+
               </div>
-              
+
               {/* Sidebar */}
               <div className="space-y-8">
                 <motion.div
@@ -183,29 +171,13 @@ export default function TrackDetailPage({ params }: { params: Promise<{ slug: st
                     </div>
                   </div>
                 </motion.div>
-                
-                <motion.div
-                  initial={{ opacity: 0, x: 20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: 0.1 }}
-                  className="bg-primary/10 rounded-xl border border-primary/20 p-6"
-                >
-                  <h3 className="text-lg font-semibold text-white mb-4">Schedule</h3>
-                  <div className="text-center py-8">
-                    <p className="text-sm text-text-secondary mb-4">Specific timings for this track will be announced closer to the event date.</p>
-                    <div className="inline-block px-3 py-1 bg-surface rounded-full text-xs font-medium text-text-secondary border border-border">
-                      To Be Announced
-                    </div>
-                  </div>
-                </motion.div>
               </div>
-              
+
             </div>
           </Container>
         </Section>
       </main>
-      
+
       <Footer />
     </div>
   )

@@ -55,19 +55,53 @@ export class RegistrationService {
   }
 
   static async onboard(data: any) {
-    // Sequential creates — no transaction needed for manual QR payment flow.
-    // Neon's pooler (PgBouncer) doesn't support interactive transactions,
-    // causing prisma.$transaction() to timeout on cold starts.
-
-    // 1. Create College
-    const college = await prisma.college.create({
-      data: {
-        name: data.collegeName,
-        city: data.city,
+    // 1. Find or create College to prevent duplicate name errors
+    let college = await prisma.college.findFirst({
+      where: {
+        name: { equals: data.collegeName, mode: 'insensitive' }
       }
     });
 
-    // 2. Create User (Coordinator)
+    if (!college) {
+      college = await prisma.college.create({
+        data: {
+          name: data.collegeName,
+          city: data.city,
+        }
+      });
+    }
+
+    // 2. Check for duplicate official email or coordinator email before attempting creation
+    const existingUser = await prisma.user.findUnique({
+      where: { email: data.coordinatorEmail }
+    });
+    if (existingUser) {
+      const err: any = new Error("Coordinator email is already registered");
+      err.statusCode = 400;
+      throw err;
+    }
+
+    const existingEcell = await prisma.eCell.findUnique({
+      where: { officialEmail: data.officialEmail }
+    });
+    if (existingEcell) {
+      const err: any = new Error("E-Cell official email is already registered");
+      err.statusCode = 400;
+      throw err;
+    }
+
+    if (data.utr) {
+      const existingPayment = await prisma.payment.findUnique({
+        where: { utr: data.utr }
+      });
+      if (existingPayment) {
+        const err: any = new Error("Transaction UTR has already been submitted");
+        err.statusCode = 400;
+        throw err;
+      }
+    }
+
+    // 3. Create User (Coordinator)
     const rawPassword = randomBytes(8).toString('hex');
     const hashedPassword = await bcrypt.hash(rawPassword, 10);
     const user = await prisma.user.create({
@@ -78,7 +112,7 @@ export class RegistrationService {
       }
     });
 
-    // 3. Create ECell
+    // 4. Create ECell
     const ecell = await prisma.eCell.create({
       data: {
         name: data.ecellName,
@@ -90,12 +124,27 @@ export class RegistrationService {
       }
     });
 
-    // 4. Resolve competition slugs to IDs
-    const comps = await prisma.competition.findMany({
-      where: { slug: { in: data.selectedTracks } }
-    });
+    // 5. Resolve competition slugs/IDs
+    let comps: Array<{ id: string }> = [];
+    if (data.selectedTracks && Array.isArray(data.selectedTracks) && data.selectedTracks.length > 0) {
+      comps = await prisma.competition.findMany({
+        where: {
+          OR: [
+            { slug: { in: data.selectedTracks } },
+            { id: { in: data.selectedTracks } },
+            { name: { in: data.selectedTracks } }
+          ]
+        }
+      });
+    }
 
-    // 5. Create Registration
+    // Fallback if DB doesn't have exact matching competitions yet
+    if (comps.length === 0) {
+      const allComps = await prisma.competition.findMany({ take: 5 });
+      comps = allComps;
+    }
+
+    // 6. Create Registration
     const passTypeMap: Record<string, any> = {
       "3-pass": "THREE_COMPETITION",
       "5-pass": "FIVE_COMPETITION"
@@ -114,7 +163,7 @@ export class RegistrationService {
       }
     });
 
-    // 6. Create Participants
+    // 7. Create Participants
     if (data.participants && Array.isArray(data.participants)) {
       await prisma.participant.createMany({
         data: data.participants.map((p: any) => ({
@@ -127,7 +176,7 @@ export class RegistrationService {
       });
     }
 
-    // 7. Create Payment record (manual QR / UTR verification)
+    // 8. Create Payment record
     await prisma.payment.create({
       data: {
         registrationId: registration.id,

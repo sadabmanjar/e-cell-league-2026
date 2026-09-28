@@ -47,15 +47,17 @@ export class RegistrationController {
 
   static async onboard(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
-      // Data is validated by Zod on the frontend, but we'll accept it raw for now
-      // since the schema is defined in the frontend folder. 
-      // Ideally we'd share it, but for speed, let's just pass it to the service.
       const payload = req.body;
       const data = await RegistrationService.onboard(payload);
       res.status(201).json({ success: true, data });
     } catch (error: any) {
+      if (error.statusCode) {
+        res.status(error.statusCode).json({ success: false, message: error.message });
+        return;
+      }
       if (error.code === 'P2002') {
-        res.status(400).json({ success: false, message: "Email or College already registered" });
+        const target = error.meta?.target?.[0] || 'Email or Record';
+        res.status(400).json({ success: false, message: `${target} is already registered` });
         return;
       }
       next(error);
