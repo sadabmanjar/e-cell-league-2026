@@ -25,7 +25,7 @@ export default function Home() {
         <HowItWorksSection />
         <PrizePoolSection />
         <CompetitionTracksSection />
-        <LeagueIntroSection />
+        {/* <LeagueIntroSection /> */}
         <GuidelinesPreviewSection />
         <PassesSection />
         <TimelineSection />

@@ -1,118 +1,384 @@
 "use client"
 import * as React from "react"
+import { Trophy, Rocket, Briefcase, Handshake, Award } from "lucide-react"
 import { Container, Section } from "@/components/ui/container"
-import { SectionHeading } from "@/components/ui/section-heading"
-import { Trophy } from "lucide-react"
-import gsap from "gsap"
-import { ScrollTrigger } from "gsap/ScrollTrigger"
-import { useReducedMotion } from "framer-motion"
-import { PRIZES } from "@/data/league"
 
-gsap.registerPlugin(ScrollTrigger)
+// ── Bento card primitives ────────────────────────────────────────────────────
 
-const prizeColors = [
-  { bg: "bg-yellow-500/20", text: "text-yellow-500", border: "border-yellow-500/50" },
-  { bg: "bg-gray-400/20", text: "text-gray-300", border: "border-gray-400/50" },
-  { bg: "bg-amber-700/20", text: "text-amber-600", border: "border-amber-700/50" },
-]
+interface BentoCardProps {
+  children: React.ReactNode
+  className?: string
+  highlighted?: boolean
+  style?: React.CSSProperties
+}
+
+function BentoCard({ children, className = "", highlighted = false, style }: BentoCardProps) {
+  return (
+    <div
+      className={`bento-card${highlighted ? " bento-card--highlighted" : ""} ${className}`}
+      style={style}
+    >
+      {children}
+    </div>
+  )
+}
+
+interface IconBoxProps {
+  children: React.ReactNode
+  accent?: boolean
+}
+
+function IconBox({ children, accent = false }: IconBoxProps) {
+  return (
+    <div className={`bento-icon-box${accent ? " bento-icon-box--accent" : ""}`}>
+      {children}
+    </div>
+  )
+}
+
+interface TagPillProps {
+  children: React.ReactNode
+}
+
+function TagPill({ children }: TagPillProps) {
+  return <span className="bento-tag-pill">{children}</span>
+}
+
+// ── Section ──────────────────────────────────────────────────────────────────
 
 export function PrizePoolSection() {
-  const counterRef = React.useRef<HTMLSpanElement>(null)
-  const containerRef = React.useRef<HTMLDivElement>(null)
-  const prefersReducedMotion = useReducedMotion()
-
-  React.useEffect(() => {
-    if (prefersReducedMotion || !counterRef.current) return
-
-    const counter = { val: 0 }
-    
-    gsap.to(counter, {
-      val: 50000,
-      duration: 2.5,
-      ease: "power2.out",
-      scrollTrigger: {
-        trigger: containerRef.current,
-        start: "top 75%",
-      },
-      onUpdate: () => {
-        if (counterRef.current) {
-          counterRef.current.innerHTML = `₹${Math.round(counter.val).toLocaleString('en-IN')}`
-        }
-      }
-    })
-
-    gsap.fromTo(".prize-item",
-      { opacity: 0, y: 20 },
-      {
-        opacity: 1,
-        y: 0,
-        duration: 0.6,
-        stagger: 0.2,
-        ease: "power2.out",
-        scrollTrigger: {
-          trigger: containerRef.current,
-          start: "top 70%"
-        }
-      }
-    )
-
-    return () => {
-      ScrollTrigger.getAll().forEach(t => t.kill())
-    }
-  }, [prefersReducedMotion])
-
   return (
-    <Section className="bg-surface-alt border-y border-border overflow-hidden">
-      <div ref={containerRef}>
-        <Container className="relative">
-          <div className="absolute -top-40 -right-40 w-96 h-96 bg-primary/20 rounded-full blur-[100px] pointer-events-none" />
-        
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-          <div>
-            <SectionHeading 
-              title="₹50,000 Prize Pool" 
-              description="Real capital for real builders. Win cash prizes, incubation support, and direct connections to the startup ecosystem."
-            />
-            
-            <div className="space-y-6 mt-8">
-              {PRIZES.map((prize, i) => (
-                <div key={prize.position} className="prize-item flex items-start gap-4">
-                  <div className={`w-12 h-12 rounded-full ${prizeColors[i].bg} ${prizeColors[i].text} flex items-center justify-center border ${prizeColors[i].border} shrink-0`}>
-                    <Trophy className="w-6 h-6" />
-                  </div>
-                  <div>
-                    <h4 className="text-lg font-bold text-white">{prize.title}</h4>
-                    <p className="text-sm text-text-secondary">{prize.cashLabel}</p>
-                    <ul className="mt-1 flex flex-wrap gap-x-3 gap-y-1">
-                      {prize.perks.map(perk => (
-                        <li key={perk} className="text-xs text-text-secondary opacity-75">{perk}</li>
-                      ))}
-                    </ul>
-                  </div>
+    <>
+      <style>{`
+        /* ── Design tokens ── */
+        .bento-section {
+          --bento-bg: #14121c;
+          --bento-card-bg: #1d1a28;
+          --bento-border: 1px solid #2c2839;
+          --bento-radius: 20px;
+          --bento-padding: 24px;
+          --bento-inner-bg: #0b0a12;
+          --bento-accent: #ff4d6d;
+          --bento-text: #ffffff;
+          --bento-muted: #a29fb0;
+          --bento-gap: 16px;
+        }
+
+        /* ── Card base ── */
+        .bento-card {
+          background: var(--bento-card-bg);
+          border: var(--bento-border);
+          border-radius: var(--bento-radius);
+          padding: var(--bento-padding);
+          display: flex;
+          flex-direction: column;
+          gap: 16px;
+          transition: transform 0.25s ease, border-color 0.25s ease;
+        }
+
+        .bento-card:hover {
+          transform: translateY(-4px);
+          border-color: var(--bento-accent);
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          .bento-card {
+            transition: none;
+          }
+          .bento-card:hover {
+            transform: none;
+          }
+        }
+
+        /* ── Highlighted (Prize Pool) card ── */
+        .bento-card--highlighted {
+          background: radial-gradient(
+            circle at 80% 0,
+            rgba(255, 77, 109, 0.28),
+            transparent 60%
+          ), #1d1a28;
+          justify-content: center;
+        }
+
+        /* ── Grid ── */
+        .bento-grid {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          grid-template-rows: repeat(2, auto);
+          gap: var(--bento-gap);
+          max-width: 1100px;
+          margin: 0 auto;
+        }
+
+        .bento-card--prize-pool {
+          grid-column: 1;
+          grid-row: 1 / 3;
+        }
+
+        .bento-card--incubation  { grid-column: 2; grid-row: 1; }
+        .bento-card--internship  { grid-column: 3; grid-row: 1; }
+        .bento-card--networking  { grid-column: 2; grid-row: 2; }
+        .bento-card--recognition { grid-column: 3; grid-row: 2; }
+
+        @media (max-width: 820px) {
+          .bento-grid {
+            grid-template-columns: 1fr;
+            grid-template-rows: none;
+          }
+          .bento-card--prize-pool,
+          .bento-card--incubation,
+          .bento-card--internship,
+          .bento-card--networking,
+          .bento-card--recognition {
+            grid-column: 1;
+            grid-row: auto;
+          }
+        }
+
+        /* ── Icon box ── */
+        .bento-icon-box {
+          width: 44px;
+          height: 44px;
+          border-radius: 12px;
+          background: rgba(162, 159, 176, 0.10);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-shrink: 0;
+          color: var(--bento-muted);
+        }
+
+        .bento-icon-box--accent {
+          background: rgba(255, 77, 109, 0.14);
+          color: var(--bento-accent);
+        }
+
+        /* ── Tag pills ── */
+        .bento-tags {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 6px;
+          margin-top: auto;
+        }
+
+        .bento-tag-pill {
+          font-size: 12px;
+          color: var(--bento-muted);
+          border: 1px solid #2c2839;
+          border-radius: 999px;
+          padding: 3px 10px;
+          white-space: nowrap;
+        }
+
+        /* ── Prize Pool card specifics ── */
+        .bento-prize-amount {
+          font-size: clamp(40px, 7vw, 64px);
+          font-weight: 800;
+          letter-spacing: -0.03em;
+          line-height: 1;
+          background: linear-gradient(to bottom, #fff 30%, #9a97a8 100%);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+        }
+
+        .bento-prize-label {
+          font-size: 12px;
+          font-weight: 700;
+          letter-spacing: 0.14em;
+          text-transform: uppercase;
+          color: var(--bento-accent);
+        }
+
+        .bento-prize-pills {
+          display: flex;
+          flex-direction: column;
+          gap: 8px;
+        }
+
+        .bento-prize-pill {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          background: var(--bento-inner-bg);
+          border-radius: 10px;
+          padding: 10px 14px;
+          font-size: 13px;
+        }
+
+        .bento-prize-pill__amount {
+          color: #ffffff;
+          font-weight: 700;
+        }
+
+        .bento-prize-pill__label {
+          color: var(--bento-muted);
+        }
+
+        .bento-prize-description {
+          font-size: 13px;
+          color: var(--bento-muted);
+          line-height: 1.6;
+          border-top: 1px solid #2c2839;
+          padding-top: 14px;
+          margin-top: 4px;
+        }
+
+        /* ── Card typography ── */
+        .bento-card-title {
+          font-size: 19px;
+          font-weight: 700;
+          color: #ffffff;
+          margin: 0;
+          line-height: 1.3;
+        }
+
+        .bento-card-description {
+          font-size: 14px;
+          color: var(--bento-muted);
+          line-height: 1.65;
+          margin: 0;
+        }
+
+        /* ── Section header ── */
+        .bento-eyebrow {
+          font-size: 12px;
+          font-weight: 700;
+          letter-spacing: 0.14em;
+          text-transform: uppercase;
+          color: var(--bento-accent);
+          margin-bottom: 12px;
+        }
+
+        .bento-heading {
+          font-size: clamp(30px, 5vw, 48px);
+          font-weight: 700;
+          letter-spacing: -0.02em;
+          color: #ffffff;
+          margin: 0 0 0 0;
+          line-height: 1.15;
+        }
+
+        .bento-subtext {
+          text-align: center;
+          font-size: 16px;
+          color: var(--bento-muted);
+          max-width: 560px;
+          line-height: 1.6;
+          margin: 0 auto 48px auto;
+        }
+      `}</style>
+
+      <section
+        className="bento-section"
+        style={{ background: "#14121c", padding: "72px 0" }}
+        id="why-attend"
+      >
+        <Container>
+          {/* Header */}
+          <div className="text-center mb-16">
+            <h2 className="bento-heading">Why E-Cell League?</h2>
+            <p className="bento-subtext">Real capital, real opportunities, real connections.</p>
+          </div>
+
+          {/* Bento Grid */}
+          <div className="bento-grid">
+
+            {/* Card 1 — Prize Pool */}
+            <BentoCard highlighted className="bento-card--prize-pool">
+              <IconBox accent>
+                <Trophy size={22} strokeWidth={1.8} />
+              </IconBox>
+
+              <div>
+                <p className="bento-prize-label">Total Prize Pool</p>
+                <p className="bento-prize-amount">₹50,000</p>
+              </div>
+
+              <div className="bento-prize-pills">
+                <div className="bento-prize-pill">
+                  <span className="bento-prize-pill__amount">₹25K</span>
+                  <span className="bento-prize-pill__label">Champion</span>
                 </div>
-              ))}
-            </div>
-            <p className="text-xs text-text-secondary mt-6 border-t border-border pt-4">
-              All 12 teams receive a Certificate of Participation. Individual track winners also receive per-track certificates.
-            </p>
+                <div className="bento-prize-pill">
+                  <span className="bento-prize-pill__amount">₹15K</span>
+                  <span className="bento-prize-pill__label">Runner-Up</span>
+                </div>
+                <div className="bento-prize-pill">
+                  <span className="bento-prize-pill__amount">₹10K</span>
+                  <span className="bento-prize-pill__label">2nd Runner-Up</span>
+                </div>
+              </div>
+
+              <p className="bento-prize-description">
+                Real capital for real builders. Cash prizes for the top three teams.
+              </p>
+            </BentoCard>
+
+            {/* Card 2 — Incubation */}
+            <BentoCard className="bento-card--incubation">
+              <IconBox>
+                <Rocket size={22} strokeWidth={1.8} />
+              </IconBox>
+              <h3 className="bento-card-title">Incubation Opportunities</h3>
+              <p className="bento-card-description">
+                The League Champion gets incubation support to turn promising ideas into real startups.
+              </p>
+              <div className="bento-tags">
+                <TagPill>Mentorship</TagPill>
+                <TagPill>Workspace</TagPill>
+                <TagPill>Launch Support</TagPill>
+              </div>
+            </BentoCard>
+
+            {/* Card 3 — Internship */}
+            <BentoCard className="bento-card--internship">
+              <IconBox>
+                <Briefcase size={22} strokeWidth={1.8} />
+              </IconBox>
+              <h3 className="bento-card-title">Internship Opportunities</h3>
+              <p className="bento-card-description">
+                Top-performing teams get direct internship pathways with startups in our ecosystem.
+              </p>
+              <div className="bento-tags">
+                <TagPill>Champion</TagPill>
+                <TagPill>Runner-Up</TagPill>
+                <TagPill>Career Opportunities</TagPill>
+              </div>
+            </BentoCard>
+
+            {/* Card 4 — Startup Networking */}
+            <BentoCard className="bento-card--networking">
+              <IconBox>
+                <Handshake size={22} strokeWidth={1.8} />
+              </IconBox>
+              <h3 className="bento-card-title">Startup Networking</h3>
+              <p className="bento-card-description">
+                Talk directly with founders and operators who have built before you.
+              </p>
+              <div className="bento-tags">
+                <TagPill>Founder Chats</TagPill>
+                <TagPill>Ecosystem Intros</TagPill>
+              </div>
+            </BentoCard>
+
+            {/* Card 5 — Recognition */}
+            <BentoCard className="bento-card--recognition">
+              <IconBox>
+                <Award size={22} strokeWidth={1.8} />
+              </IconBox>
+              <h3 className="bento-card-title">Recognition</h3>
+              <p className="bento-card-description">
+All 12 E-Cell teams receive a Certificate of Participation. Track winners earn per-track certificates, and the top three positions take home trophies and certificates.              </p>
+              <div className="bento-tags">
+                <TagPill>Trophy</TagPill>
+                <TagPill>Certificate</TagPill>
+              </div>
+            </BentoCard>
+
           </div>
-          
-          <div className="relative">
-            <div className="absolute inset-0 aspect-square rounded-full border border-primary/10 bg-primary/5 blur-3xl pointer-events-none" />
-            
-            <div className="w-full aspect-square bg-background rounded-full border border-primary/30 flex items-center justify-center flex-col shadow-[0_0_50px_rgba(255,77,109,0.2)] relative z-10 transition-transform duration-700 hover:scale-[1.02]">
-              <span 
-                ref={counterRef} 
-                className="text-5xl md:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-b from-white to-text-secondary tabular-nums"
-              >
-                ₹50,000
-              </span>
-              <span className="text-xl text-primary font-bold tracking-widest mt-4 uppercase">Total Prize Pool</span>
-            </div>
-          </div>
-        </div>
-      </Container>
-    </div>
-    </Section>
+        </Container>
+      </section>
+    </>
   )
 }
