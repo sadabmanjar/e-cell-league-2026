@@ -8,7 +8,7 @@ export function HowItWorksSection() {
   const steps = [
     { number: "01", title: "Register Your Team", description: "Secure a 3-Track or 5-Track League Pass. Onboard your E-Cell with 6–12 members. First-come, first-served — only 12 slots available." },
     { number: "02", title: "Compete Across Tracks", description: "On event day, your team simultaneously competes in BizIQ, The Pitch Lab, mADverse, CODEX, and Dress-A-Founder." },
-    { number: "03", title: "Earn Points & Win", description: "Top 6 teams per track earn League Points (60/50/40/30/20/10). The team with the highest cumulative total wins the League Championship." },
+    { number: "03", title: "Earn Points & Win", description: "Top 6 teams per track earn League Points. The team with the highest cumulative total wins the League Championship." },
   ]
 
   return (

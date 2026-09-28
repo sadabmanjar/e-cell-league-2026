@@ -62,12 +62,7 @@ export function PassesSection() {
                     </li>
                   ))}
                 </ul>
-                <div className="mt-4 p-3 bg-yellow-500/5 border border-yellow-500/20 rounded-lg">
-                  <p className="text-xs text-yellow-400 flex items-start gap-2">
-                    <AlertCircle className="w-3 h-3 shrink-0 mt-0.5" />
-                    Track selection is confirmed at registration and cannot be changed afterward.
-                  </p>
-                </div>
+                
               </CardContent>
               <CardFooter>
                 <Link href="/passes" className="w-full">
@@ -125,9 +120,21 @@ export function PassesSection() {
             </Card>
           </motion.div>
         </div>
-
+        <div className="mt-8 p-3 bg-yellow-500/5 border border-yellow-500/20 rounded-lg">
+          <p className="text-xs text-yellow-400 flex items-start gap-2">
+            <AlertCircle className="w-3 h-3 shrink-0 mt-0.5" />
+            Track selection is confirmed at registration and cannot be changed afterward. 
+          </p>
+        
+        </div>
+        <div className="mt-4 p-3 bg-yellow-500/5 border border-yellow-500/20 rounded-lg">
+            <p className="text-xs text-yellow-400 flex items-start gap-2">
+            <AlertCircle className="w-3 h-3 shrink-0 mt-0.5" />
+Both passes are team-level, non-transferable, and non-refundable once purchased. Only 12 team slots available.          </p>
+        
+        </div>
         <p className="text-center text-xs text-text-secondary mt-8">
-          Both passes are team-level, non-transferable, and non-refundable once purchased. Only 12 team slots available.
+          
         </p>
       </Container>
     </Section>

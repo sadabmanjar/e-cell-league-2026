@@ -157,7 +157,7 @@ export function HeroSection() {
               </div>
               <div className="flex flex-col items-center">
                 <p className="text-4xl lg:text-5xl font-bold text-white">12</p>
-                <p className="text-sm lg:text-base text-text-secondary uppercase tracking-wider mt-2">Teams Only</p>
+                <p className="text-sm lg:text-base text-text-secondary uppercase tracking-wider mt-2">E-cells</p>
               </div>
               <div className="flex flex-col items-center">
                 <p className="text-4xl lg:text-5xl font-bold text-white">₹50K</p>
