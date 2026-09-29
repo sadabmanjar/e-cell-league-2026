@@ -167,7 +167,7 @@ export default function PassesPage() {
                         size="lg" 
                         className="w-full"
                         disabled={selectedPass === "3-pass" && selectedTracks.length !== 3}
-                        onClick={() => router.push(`/register?pass=${selectedPass}`)}
+                        onClick={() => router.push(`/register?pass=${selectedPass}&tracks=${selectedTracks.join(",")}`)}
                       >
                         Proceed to Checkout
                       </Button>

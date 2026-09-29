@@ -30,17 +30,18 @@ export function PassCard({
 }: PassCardProps) {
   return (
     <Card className={cn(
-      "relative flex flex-col h-full transition-all duration-300",
-      isPopular ? "border-primary shadow-[0_0_30px_rgba(255,77,109,0.15)] bg-surface-alt scale-105 z-10" : "border-border bg-surface hover:border-border-hover"
+      "relative flex flex-col h-full group transition-all duration-300",
+      "border-border bg-surface hover:border-primary hover:shadow-[0_0_30px_rgba(255,77,109,0.15)] hover:bg-surface-alt hover:z-10",
+      isPopular && "z-10"
     )}>
       {isPopular && (
-        <div className="absolute top-0 right-0 bg-primary text-white text-xs font-bold px-3 py-1 rounded-bl-lg rounded-tr-lg">
+        <div className="absolute top-0 right-0 bg-primary text-white text-xs font-bold px-3 py-1 rounded-bl-lg rounded-tr-lg shadow-lg">
           RECOMMENDED
         </div>
       )}
       
       <CardHeader>
-        <CardTitle className={cn("text-2xl", isPopular ? "text-white" : "text-text-primary")}>
+        <CardTitle className="text-2xl text-text-primary transition-colors group-hover:text-white">
           {title}
         </CardTitle>
         <CardDescription>{description}</CardDescription>
@@ -48,7 +49,7 @@ export function PassCard({
       
       <CardContent className="flex-1 flex flex-col">
         <div className="mb-6 pb-6 border-b border-border">
-          <span className="text-4xl font-bold text-white">{price}</span>
+          <span className="text-4xl font-bold text-white transition-all duration-300 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-primary/80">{price}</span>
           <span className="text-text-secondary text-sm ml-2">/ E-Cell</span>
         </div>
         
@@ -61,8 +62,8 @@ export function PassCard({
           <h4 className="text-sm font-semibold text-white mb-4">What's included</h4>
           <ul className="space-y-3">
             {features.map((feature, i) => (
-              <li key={i} className={cn("flex items-start text-sm", feature.included ? "text-text-secondary" : "text-text-secondary/50 opacity-50")}>
-                <Check className={cn("w-4 h-4 mr-3 shrink-0 mt-0.5", feature.included ? "text-primary" : "text-text-secondary")} />
+              <li key={i} className={cn("flex items-start text-sm transition-colors", feature.included ? "text-text-secondary group-hover:text-white/80" : "text-text-secondary/50 opacity-50")}>
+                <Check className={cn("w-4 h-4 mr-3 shrink-0 mt-0.5 transition-colors", feature.included ? "text-text-secondary group-hover:text-primary" : "text-text-secondary")} />
                 {feature.text}
               </li>
             ))}
@@ -72,8 +73,8 @@ export function PassCard({
       
       <CardFooter>
         <Button 
-          className="w-full" 
-          variant={isPopular ? "default" : "outline"}
+          className="w-full transition-all duration-300 group-hover:bg-primary group-hover:text-primary-foreground group-hover:border-primary hover:!scale-[1.02] active:!scale-[0.98] group-hover:shadow-lg group-hover:shadow-primary/25" 
+          variant="outline"
           onClick={onSelect}
         >
           Select {title}

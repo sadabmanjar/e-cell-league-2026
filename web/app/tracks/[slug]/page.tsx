@@ -86,26 +86,7 @@ export default function TrackDetailPage({ params }: { params: Promise<{ slug: st
                   </p>
                 </motion.div> */}
 
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5 }}
-                >
-                  <h2 className="text-2xl font-bold text-white mb-6">Competition Process</h2>
-                  <div className="space-y-4 relative before:absolute before:inset-0 before:ml-4 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-border before:to-transparent">
-                    {track.process.map((step, i) => (
-                      <div key={i} className="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
-                        <div className="flex items-center justify-center w-8 h-8 rounded-full border-4 border-background bg-primary shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 ml-[2px] md:ml-0 z-10">
-                          <span className="text-xs font-bold text-white">{i + 1}</span>
-                        </div>
-                        <div className="w-[calc(100%-3rem)] md:w-[calc(50%-2rem)] p-4 rounded-lg bg-surface border border-border shadow">
-                          <p className="text-sm text-text-secondary">{step}</p>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </motion.div>
+
 
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
@@ -114,18 +95,7 @@ export default function TrackDetailPage({ params }: { params: Promise<{ slug: st
                   transition={{ duration: 0.5 }}
                   className="grid md:grid-cols-2 gap-8"
                 >
-                  <div>
-                    <h2 className="text-2xl font-bold text-white mb-6">Judging Criteria</h2>
-                    <ul className="space-y-3">
-                      {track.judgingCriteria.map((criterion, i) => (
-                        <li key={i} className="flex items-start gap-3 text-text-secondary">
-                          <CheckCircle2 className="w-5 h-5 text-green-500 shrink-0 mt-0.5" />
-                          {criterion}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                  <div>
+                  <div className="col-span-2">
                     <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-3">
                       <AlertTriangle className="w-6 h-6 text-yellow-500" />
                       Rules
@@ -145,43 +115,7 @@ export default function TrackDetailPage({ params }: { params: Promise<{ slug: st
 
               {/* Sidebar */}
               <div className="space-y-8">
-                <motion.div
-                  initial={{ opacity: 0, x: 20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5 }}
-                  className="bg-surface rounded-xl border border-border p-6"
-                >
-                  <h3 className="text-lg font-semibold text-white mb-4 border-b border-border pb-4">Key Info</h3>
-                  <div className="space-y-4">
-                    <div className="flex items-center gap-4">
-                      <div className="w-10 h-10 rounded-lg bg-background flex items-center justify-center text-primary">
-                        <Users className="w-5 h-5" />
-                      </div>
-                      <div>
-                        <p className="text-xs text-text-secondary uppercase">Team Size</p>
-                        <p className="font-medium text-white">{track.teamSize}</p>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-4">
-                      <div className="w-10 h-10 rounded-lg bg-background flex items-center justify-center text-primary">
-                        <Clock className="w-5 h-5" />
-                      </div>
-                      <div>
-                        <p className="text-xs text-text-secondary uppercase">Duration</p>
-                        <p className="font-medium text-white">{track.duration}</p>
-                      </div>
-                    </div>
-                    {/* <div className="pt-4 border-t border-border">
-                      <p className="text-xs text-text-secondary uppercase mb-1">Format</p>
-                      <p className="font-medium text-white text-sm">{track.format}</p>
-                    </div> */}
-                    <div className="pt-4 border-t border-border">
-                      <p className="text-xs text-text-secondary uppercase mb-1">Scoring</p>
-                      <p className="font-medium text-white text-sm">{track.scoring}</p>
-                    </div>
-                  </div>
-                </motion.div>
+
 
                 {/* Track Contacts */}
 <motion.div

@@ -56,7 +56,7 @@ export function CompetitionTracksSection() {
         {/* Parallel format notice */}
         <div className="mt-10 text-center">
           <p className="text-sm text-text-secondary max-w-2xl mx-auto bg-surface border border-border rounded-lg px-6 py-4">
-            All five tracks run simultaneously on event day. A participant cannot be assigned to two tracks at the same time.
+            All five tracks run simultaneously on event day.
             Team Leads are responsible for assigning members to their designated tracks before the event.
           </p>
         </div>

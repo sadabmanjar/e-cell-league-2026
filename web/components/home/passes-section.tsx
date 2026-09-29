@@ -42,21 +42,23 @@ export function PassesSection() {
             whileInView="visible"
             viewport={{ once: true, margin: "-100px" }}
           >
-            <Card className="relative overflow-hidden border-border bg-surface h-full flex flex-col group transition-colors hover:border-text-secondary/30">
-              <CardHeader>
-                <CardTitle className="text-2xl">3-Track League Pass</CardTitle>
+            <Card className="relative overflow-hidden border-border bg-surface h-full flex flex-col group transition-all duration-300 hover:border-primary hover:shadow-[0_0_30px_rgba(255,77,109,0.15)] hover:bg-surface-alt">
+              <div className="absolute inset-0 bg-gradient-to-b from-primary/20 to-transparent opacity-0 group-hover:opacity-50 transition-opacity duration-300 pointer-events-none" />
+              
+              <CardHeader className="relative z-10">
+                <CardTitle className="text-2xl transition-colors group-hover:text-white">3-Track League Pass</CardTitle>
                 <CardDescription>Strategic entry for targeted performance.</CardDescription>
               </CardHeader>
-              <CardContent className="flex-1">
-                <div className="mb-6">
-                  <span className="text-4xl font-bold text-white group-hover:text-primary transition-colors">{PASSES.THREE_TRACK.priceLabel}</span>
+              <CardContent className="flex-1 relative z-10">
+                <div className="mb-6 flex items-baseline">
+                  <span className="text-4xl font-bold text-white transition-all duration-300 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-primary/80">{PASSES.THREE_TRACK.priceLabel}</span>
                   <span className="text-text-secondary text-sm ml-2">/ team</span>
                 </div>
                 <ul className="space-y-4">
                   {PASSES.THREE_TRACK.features.map((feature) => (
-                    <li key={feature} className="flex items-start text-sm text-text-secondary">
-                      <div className="bg-primary/10 p-1 rounded mr-3 shrink-0">
-                        <Check className="w-3 h-3 text-primary" />
+                    <li key={feature} className="flex items-start text-sm text-text-secondary group-hover:text-white/80 transition-colors">
+                      <div className="bg-primary/10 group-hover:bg-primary transition-colors p-1 rounded mr-3 shrink-0">
+                        <Check className="w-3 h-3 text-primary group-hover:text-white transition-colors" />
                       </div>
                       <span className="mt-0.5">{feature}</span>
                     </li>
@@ -64,9 +66,9 @@ export function PassesSection() {
                 </ul>
                 
               </CardContent>
-              <CardFooter>
+              <CardFooter className="relative z-10">
                 <Link href="/passes" className="w-full">
-                  <Button className="w-full transition-transform hover:scale-[1.02] active:scale-[0.98]" variant="outline">Select This Pass</Button>
+                  <Button className="w-full transition-all duration-300 group-hover:bg-primary group-hover:text-primary-foreground group-hover:border-primary hover:!scale-[1.02] active:!scale-[0.98] group-hover:shadow-lg group-hover:shadow-primary/25" variant="outline">Select This Pass</Button>
                 </Link>
               </CardFooter>
             </Card>
@@ -80,41 +82,41 @@ export function PassesSection() {
             viewport={{ once: true, margin: "-100px" }}
             transition={{ delay: 0.2 }}
           >
-            <Card className="relative overflow-hidden border-primary shadow-[0_0_30px_rgba(255,77,109,0.15)] bg-surface-alt md:scale-105 z-10 h-full flex flex-col">
+            <Card className="relative overflow-hidden border-border bg-surface h-full flex flex-col group transition-all duration-300 hover:border-primary hover:shadow-[0_0_30px_rgba(255,77,109,0.15)] hover:bg-surface-alt z-10">
               {/* Premium Animated Gradient Border Effect */}
-              <div className="absolute inset-0 bg-gradient-to-b from-primary/20 to-transparent opacity-50 pointer-events-none" />
+              <div className="absolute inset-0 bg-gradient-to-b from-primary/20 to-transparent opacity-0 group-hover:opacity-50 transition-opacity duration-300 pointer-events-none" />
               
               <div className="absolute top-0 right-0 bg-primary text-white text-xs font-bold px-4 py-1.5 rounded-bl-lg shadow-lg">
                 RECOMMENDED
               </div>
               <CardHeader className="relative z-10">
-                <CardTitle className="text-2xl text-white">5-Track League Pass</CardTitle>
+                <CardTitle className="text-2xl transition-colors group-hover:text-white">5-Track League Pass</CardTitle>
                 <CardDescription>All-access entry to maximise League points.</CardDescription>
               </CardHeader>
               <CardContent className="flex-1 relative z-10">
                 <div className="mb-6 flex items-baseline">
-                  <span className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-white to-primary/80">{PASSES.FIVE_TRACK.priceLabel}</span>
+                  <span className="text-4xl font-bold text-white transition-all duration-300 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-primary/80">{PASSES.FIVE_TRACK.priceLabel}</span>
                   <span className="text-text-secondary text-sm ml-2">/ team</span>
                 </div>
                 <ul className="space-y-4">
                   {PASSES.FIVE_TRACK.features.map((feature) => (
-                    <li key={feature} className="flex items-start text-sm text-text-secondary">
-                      <div className="bg-primary p-1 rounded mr-3 shrink-0">
-                        <Check className="w-3 h-3 text-white" />
+                    <li key={feature} className="flex items-start text-sm text-text-secondary group-hover:text-white/80 transition-colors">
+                      <div className="bg-primary/10 group-hover:bg-primary transition-colors p-1 rounded mr-3 shrink-0">
+                        <Check className="w-3 h-3 text-primary group-hover:text-white transition-colors" />
                       </div>
-                      <span className="mt-0.5 text-white/80">{feature}</span>
+                      <span className="mt-0.5 transition-colors">{feature}</span>
                     </li>
                   ))}
                 </ul>
                 <div className="mt-4 p-3 bg-primary/5 border border-primary/20 rounded-lg">
-                  <p className="text-xs text-text-secondary">
+                  <p className="text-xs text-text-secondary group-hover:text-white/80 transition-colors">
                     Max earnable: <span className="text-primary font-bold">300 League Points</span> across all 5 tracks.
                   </p>
                 </div>
               </CardContent>
               <CardFooter className="relative z-10">
                 <Link href="/passes" className="w-full">
-                  <Button className="w-full transition-transform hover:scale-[1.02] active:scale-[0.98] shadow-lg shadow-primary/25 hover:shadow-primary/40" variant="default">Select This Pass</Button>
+                  <Button className="w-full transition-all duration-300 group-hover:bg-primary group-hover:text-primary-foreground group-hover:border-primary hover:!scale-[1.02] active:!scale-[0.98] group-hover:shadow-lg group-hover:shadow-primary/25" variant="outline">Select This Pass</Button>
                 </Link>
               </CardFooter>
             </Card>

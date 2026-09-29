@@ -142,7 +142,7 @@ export function HeroSection() {
       <section
         onMouseMove={handleMove}
         onMouseLeave={handleLeave}
-        className="relative overflow-hidden pt-16 pb-24 lg:pt-28 lg:pb-32 border-b border-border"
+        className="relative overflow-hidden pb-24 lg:pb-32 border-b border-border"
       >
         {/* Ambient glow */}
         <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_50%_20%,rgba(155,92,240,0.22),transparent_55%),radial-gradient(circle_at_15%_85%,rgba(255,77,109,0.18),transparent_45%)]" />
@@ -158,7 +158,7 @@ export function HeroSection() {
             className="relative mx-auto w-full max-w-6xl py-8"
           >
             {/* Floating cards */}
-            <FloatCard reduce={reduce} className="left-0 top-[14%]">
+            {/* <FloatCard reduce={reduce} className="left-0 top-[14%]">
               <p className="text-3xl font-bold text-white">₹50K</p>
               <p className="text-xs text-text-secondary">Total prize pool</p>
             </FloatCard>
@@ -171,7 +171,7 @@ export function HeroSection() {
             <FloatCard reduce={reduce} delay={3} className="left-[2%] bottom-[12%]">
               <p className="text-2xl font-bold text-white">5 Tracks</p>
               <p className="text-xs text-text-secondary">Pitch to Operations</p>
-            </FloatCard>
+            </FloatCard> */}
 
             {/* <FloatCard reduce={reduce} delay={2} className="right-[2%] bottom-[14%] min-w-[180px]">
               <p className="text-2xl font-bold text-white">

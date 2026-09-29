@@ -17,16 +17,14 @@ export function Navigation() {
         {/* Left Side: AIC Logo */}
         <div className="flex items-center">
           <Link href="/" className="flex items-center gap-3">
-            <div className="bg-white/95 px-3 py-1.5 rounded-lg border border-white/20 shadow-md transition-all hover:bg-white">
-              <Image
-                src="/logo/aicrntu-color.png"
-                alt="AIC RNTU Logo"
-                width={200}
-                height={60}
-                className="h-10 md:h-11 w-auto object-contain"
-                priority
-              />
-            </div>
+            <Image
+              src="/logo/AIC-RNTU - White.png"
+              alt="AIC RNTU Logo"
+              width={200}
+              height={60}
+              className="h-10 md:h-11 w-auto object-contain"
+              priority
+            />
           </Link>
         </div>
 
@@ -40,12 +38,18 @@ export function Navigation() {
             <Link href="/teams" className="text-sm font-medium text-text-secondary transition-colors hover:text-white">Teams</Link>
           </div>
 
-          {/* Right Side: E-Cell Brand & Action */}
+          {/* Right Side: E-Cell Brand */}
           <div className="flex items-center gap-4 border-l border-border/60 pl-6">
             <Link href="/" className="flex items-center space-x-2">
-              <span className="text-base font-bold text-white tracking-tight">E-Cell <span className="text-primary">League</span> 2026</span>
+              <Image
+                src="/logo/e-cell-logo.png"
+                alt="E-Cell Logo"
+                width={120}
+                height={40}
+                className="h-8 md:h-10 w-auto object-contain"
+                priority
+              />
             </Link>
-            <Link href="/passes" passHref><Button variant="default">Register Now</Button></Link>
           </div>
         </div>
 
@@ -77,7 +81,6 @@ export function Navigation() {
               <Link href="/schedule" onClick={() => setIsOpen(false)} className="text-sm font-medium text-text-primary">Schedule</Link>
               <Link href="/teams" onClick={() => setIsOpen(false)} className="text-sm font-medium text-text-primary">Teams</Link>
               <div className="h-px bg-border my-2" />
-              <Link href="/passes" passHref className="w-full"><Button variant="default" className="w-full justify-center" onClick={() => setIsOpen(false)}>Register Now</Button></Link>
             </div>
           </motion.div>
         )}

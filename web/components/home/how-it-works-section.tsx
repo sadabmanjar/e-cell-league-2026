@@ -19,7 +19,7 @@ export function HowItWorksSection() {
                      IT&apos;S NOT JUST A LEAGUE.<br/> <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary"> IT'S A LAUNCH PAD.</span>
                   </h2>
                   <p className="text-lg text-text-secondary leading-relaxed">
-                     is a one-day multi-track entrepreneurship competition exclusively for 12 registered E-Cell teams.
+                     It is a one-day multi-track entrepreneurship competition exclusively for 12 E-Cell teams.
                     Points are earned across 5 parallel tracks, aggregated on a live leaderboard, and the team topping the standings wins the League Championship.
                   </p>
                 </div>

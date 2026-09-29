@@ -322,7 +322,7 @@ export function PrizePoolSection() {
               </IconBox>
               <h3 className="bento-card-title">Incubation Opportunities</h3>
               <p className="bento-card-description">
-                The League Champion gets incubation support to turn promising ideas into real startups.
+                Selected ideas will get incubation support to turn promising ideas into real startups.
               </p>
               <div className="bento-tags">
                 <TagPill>Mentorship</TagPill>

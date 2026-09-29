@@ -7,7 +7,7 @@ import {
   registrationSchema, 
   RegistrationFormData
 } from "@/lib/validations/registration"
-import { useRouter } from "next/navigation"
+import { useRouter, useSearchParams } from "next/navigation"
 import { StepIndicator } from "./step-indicator"
 import { EcellDetails } from "./ecell-details"
 import { CoordinatorDetails } from "./coordinator-details"
@@ -20,55 +20,60 @@ import { Button } from "@/components/ui/button"
 import { CheckCircle } from "lucide-react"
 import { fetchClient } from "@/lib/api/client"
 
-const STEPS = [
-  "E-Cell Details",
-  "Coordinator",
-  "Team Details",
-  "League Pass",
-  "Competitions",
-  "Review",
-  "Payment"
-]
-
 export function RegistrationForm() {
+  const router = useRouter()
+  const searchParams = useSearchParams()
+  
+  const urlPass = searchParams.get("pass")
+  const urlTracks = searchParams.get("tracks")?.split(",") || []
+
+  // If a user navigates directly to /register without a pass, you might want to redirect them to /passes
+  React.useEffect(() => {
+    if (!urlPass || urlTracks.length === 0) {
+      router.push("/passes")
+    }
+  }, [urlPass, urlTracks, router])
+
+  const steps = [
+    "E-Cell Details",
+    "Coordinator",
+    "Team Details",
+    "Review",
+    "Payment"
+  ]
+
   const [currentStep, setCurrentStep] = React.useState(0)
   const [isSubmitting, setIsSubmitting] = React.useState(false)
   const [isSuccess, setIsSuccess] = React.useState(false)
   const [successData, setSuccessData] = React.useState<any>(null)
-  const router = useRouter()
 
   const methods = useForm<RegistrationFormData>({
     resolver: zodResolver(registrationSchema),
     mode: "onChange",
     defaultValues: {
       participants: [{ name: "", email: "", phone: "", collegeId: "" }],
-      selectedTracks: []
+      passType: (urlPass as any) || undefined,
+      selectedTracks: urlTracks.length > 0 ? urlTracks : []
     }
   })
 
-  const { trigger, getValues } = methods
+  const { trigger } = methods
+  const currentStepName = steps[currentStep]
 
   const processNextStep = async () => {
     let isStepValid = false;
 
-    switch(currentStep) {
-      case 0:
+    switch(currentStepName) {
+      case "E-Cell Details":
         isStepValid = await trigger(["collegeName", "ecellName", "city", "officialEmail", "contactNumber", "socialLinks"])
         break;
-      case 1:
+      case "Coordinator":
         isStepValid = await trigger(["coordinatorName", "coordinatorEmail", "coordinatorPhone", "designation"])
         break;
-      case 2:
+      case "Team Details":
         isStepValid = await trigger(["participants"])
         break;
-      case 3:
-        isStepValid = await trigger(["passType"])
-        break;
-      case 4:
-        isStepValid = await trigger(["selectedTracks"])
-        break;
-      case 5:
-        // Review step, always valid to proceed to payment
+      case "Review":
         isStepValid = true;
         break;
       default:
@@ -87,7 +92,7 @@ export function RegistrationForm() {
   }
 
   const onSubmit = async (data: RegistrationFormData) => {
-    // This is step 6 (Payment step)
+    // This is the Payment step
     setIsSubmitting(true)
     
     try {
@@ -149,7 +154,7 @@ export function RegistrationForm() {
 
   return (
     <div className="max-w-3xl mx-auto w-full">
-      <StepIndicator currentStep={currentStep} totalSteps={STEPS.length} steps={STEPS} />
+      <StepIndicator currentStep={currentStep} totalSteps={steps.length} steps={steps} />
       
       <div className="mt-12 bg-surface-alt border border-border rounded-2xl p-6 md:p-8">
         <FormProvider {...methods}>
@@ -163,13 +168,11 @@ export function RegistrationForm() {
                 exit={{ opacity: 0, x: -20 }}
                 transition={{ duration: 0.3 }}
               >
-                {currentStep === 0 && <EcellDetails />}
-                {currentStep === 1 && <CoordinatorDetails />}
-                {currentStep === 2 && <ParticipantForm />}
-                {currentStep === 3 && <PassSelector />}
-                {currentStep === 4 && <CompetitionSelector />}
-                {currentStep === 5 && <RegistrationSummary />}
-                {currentStep === 6 && <PaymentSummary />}
+                {currentStepName === "E-Cell Details" && <EcellDetails />}
+                {currentStepName === "Coordinator" && <CoordinatorDetails />}
+                {currentStepName === "Team Details" && <ParticipantForm />}
+                {currentStepName === "Review" && <RegistrationSummary />}
+                {currentStepName === "Payment" && <PaymentSummary />}
               </motion.div>
             </AnimatePresence>
 
@@ -184,7 +187,7 @@ export function RegistrationForm() {
                 Back
               </Button>
               
-              {currentStep < STEPS.length - 1 ? (
+              {currentStep < steps.length - 1 ? (
                 <Button type="button" onClick={processNextStep}>
                   Continue
                 </Button>
