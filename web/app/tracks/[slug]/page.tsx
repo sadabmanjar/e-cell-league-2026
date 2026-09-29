@@ -7,7 +7,17 @@ import { Button } from "@/components/ui/button"
 import { tracksData, getIconComponent } from "@/data/tracks"
 import { Navigation } from "@/components/layout/navigation"
 import { Footer } from "@/components/layout/footer"
-import { CheckCircle2, ChevronRight, Clock, Users, BookOpen, AlertTriangle } from "lucide-react"
+import {
+  CheckCircle2,
+  ChevronRight,
+  Clock,
+  Users,
+  BookOpen,
+  AlertTriangle,
+  Phone,
+  Mail,
+  UserRound,
+} from "lucide-react"
 import Link from "next/link"
 
 export default function TrackDetailPage({ params }: { params: Promise<{ slug: string }> }) {
@@ -172,6 +182,77 @@ export default function TrackDetailPage({ params }: { params: Promise<{ slug: st
                     </div>
                   </div>
                 </motion.div>
+
+                {/* Track Contacts */}
+<motion.div
+  initial={{ opacity: 0, x: 20 }}
+  whileInView={{ opacity: 1, x: 0 }}
+  viewport={{ once: true }}
+  transition={{ duration: 0.5 }}
+  className="bg-surface rounded-xl border border-border p-6"
+>
+  <h3 className="text-lg font-semibold text-white mb-4 border-b border-border pb-4">
+    Track Contacts
+  </h3>
+
+  <div className="space-y-5">
+
+    <div>
+      <p className="text-xs text-text-secondary uppercase tracking-wide mb-2">
+        Track Owner
+      </p>
+
+      <div className="flex items-center gap-3">
+        <div className="w-10 h-10 rounded-lg bg-background flex items-center justify-center text-primary">
+          <UserRound className="w-5 h-5" />
+        </div>
+
+        <div>
+          <p className="font-medium text-white">
+            {track.owner.name}
+          </p>
+
+          <a
+            href={`tel:${track.owner.phone}`}
+            className="flex items-center gap-2 text-sm text-text-secondary hover:text-primary transition-colors mt-1"
+          >
+            <Phone className="w-3.5 h-3.5" />
+            {track.owner.phone}
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div className="border-t border-border" />
+
+    <div>
+      <p className="text-xs text-text-secondary uppercase tracking-wide mb-2">
+        Co-Owner
+      </p>
+
+      <div className="flex items-center gap-3">
+        <div className="w-10 h-10 rounded-lg bg-background flex items-center justify-center text-primary">
+          <UserRound className="w-5 h-5" />
+        </div>
+
+        <div>
+          <p className="font-medium text-white">
+            {track.coOwner.name}
+          </p>
+
+          <a
+            href={`tel:${track.coOwner.phone}`}
+            className="flex items-center gap-2 text-sm text-text-secondary hover:text-primary transition-colors mt-1"
+          >
+            <Phone className="w-3.5 h-3.5" />
+            {track.coOwner.phone}
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</motion.div>
               </div>
 
             </div>

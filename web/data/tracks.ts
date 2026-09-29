@@ -27,6 +27,15 @@ export interface TrackData {
   judgingCriteria: string[];
   rules: string[];
   scoring: string;
+  owner: {
+    name: string
+    phone: string;
+  }
+
+  coOwner: {
+    name: string
+    phone: string
+  }
 }
 
 export const tracksData: TrackData[] = [
@@ -36,6 +45,14 @@ export const tracksData: TrackData[] = [
     title: "BizIQ",
     originalEvent: "Entrepreneurs Quiz",
     iconName: "BrainCircuit",
+      owner: {
+    name: "Vansh Agrawal",
+    phone: "+91 6307023247",
+  },
+  coOwner: {
+    name: "Ananya Lodhi",
+    phone: "+91 9238193024",
+  },
     shortDescription: "Test your team's knowledge of the startup ecosystem, business history, and entrepreneurial fundamentals.",
     tagline:"Where business minds battle.....",
     overview: "BizIQ is an entrepreneurship quiz that evaluates teams on their awareness of business landscapes, startup ecosystems, iconic founders, funding rounds, and entrepreneurial history. Fast-paced and intellectually rigorous.",
@@ -69,6 +86,14 @@ export const tracksData: TrackData[] = [
     title: "The Pitch Lab",
     originalEvent: "B-Plan Challenge",
     iconName: "Lightbulb",
+    owner: {
+    name: "Prabhdeep Singh Kalsi",
+    phone: "+91 7869528561",
+  },
+  coOwner: {
+    name: "",
+    phone: "",
+  },
     shortDescription: "Present a high-growth startup idea to a panel of mock investors and defend your vision.",
     overview: "Anyone can have an idea. Few can sell one. The Pitch Lab is the League’s startup pitch competition, where participants turn a promising idea into a compelling business proposition backed by market research, a viable revenue model, and a clear go-to-market strategy. Participants will pitch their ideas and defend their business potential before a panel of judges.",
     tagline:" Platfrom to Launch Ideas into bigger opportunities.",
@@ -102,6 +127,14 @@ export const tracksData: TrackData[] = [
     title: "mADverse",
     originalEvent: "Advertisement Showcase",
     iconName: "Presentation",
+   owner: {
+    name: "Ritika Yadav",
+    phone: "+91 9651027150",
+  },
+  coOwner: {
+    name: "Hanshika Dhurve",
+    phone: "+91 7898837972",
+  },
     shortDescription: "Create a compelling and creative advertising campaign for a product on the spot.",
     overview: "mADverse is a high-energy marketing challenge that tests creativity, quick thinking, persuasive communication, and stage presence. Teams will be given a product two days before the event and must create a creative 1-minute marketing video showcasing the product through an engaging tagline, jingle, skit, or promotional concept. The challenge puts teams’ storytelling, branding, and marketing skills to the test.",
     tagline:"Let your creativity prove you are a MAD genius.",
@@ -137,6 +170,14 @@ export const tracksData: TrackData[] = [
     title: "CODEX",
     originalEvent: "Hackathon",
     iconName: "Code",
+         owner: {
+    name: "Samridh Sen",
+    phone: "+91 8770473662",
+  },
+  coOwner: {
+    name: "",
+    phone: "",
+  },
     shortDescription: "Build a working technical prototype to solve a specific problem statement within 6 hours.",
     overview: "CODEX is 6-hours hack-a-thon designed to challenge participants to transform ideas into functional solutions. Participants will be given a real-world problem statement and must develop a software or hardware solution within the time limit.The challenge focuses on technical execution, innovation, practical utility, problem-solving, and the ability to build and deliver a working solution under pressure and within a strict time constraint.",
     tagline: "Turn problems into prototype.",
@@ -171,6 +212,14 @@ export const tracksData: TrackData[] = [
     title: "Dress-A-Founder",
     originalEvent: "Dress-A-Founder",
     iconName: "UserCheck",
+         owner: {
+    name: "Dilip Gupta",
+    phone: "+91 9693028104",
+  },
+  coOwner: {
+    name: "Satyam Patel",
+    phone: "+91 9301240930",
+  },
     shortDescription: "Shape the public persona of a hypothetical founder and manage a PR crisis under pressure.",
     overview: "Dress-A-Founder is a unique founder-impersonation challenge where participants step into the shoes of a renowned founder. Participants must dress and present themselves as the chosen founder while demonstrating their knowledge of the founder’s journey, business, vision, achievements, challenges, and entrepreneurial story. The challenge tests research, confidence, creativity, communication, and the ability to convincingly embody a founder’s persona.",
     tagline:"Embody the founder. Pitch the vision.",
