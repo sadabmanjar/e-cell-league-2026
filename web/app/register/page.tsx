@@ -26,7 +26,9 @@ export default function RegisterPage() {
 
         <Section className="bg-background py-16">
           <Container>
-            <RegistrationForm />
+            <React.Suspense fallback={<div>Loading form...</div>}>
+              <RegistrationForm />
+            </React.Suspense>
           </Container>
         </Section>
       </main>
