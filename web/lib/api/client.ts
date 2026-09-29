@@ -39,13 +39,24 @@ export async function fetchClient<T>(
 
   try {
     const response = await fetch(url, config);
-    const data: ApiResponse<T> = await response.json();
+    
+    // Check if the response is JSON
+    const contentType = response.headers.get("content-type");
+    let data;
+    
+    if (contentType && contentType.includes("application/json")) {
+      data = await response.json();
+    } else {
+      // If it's not JSON (like a 404 HTML page), we just create a generic error object
+      const text = await response.text();
+      throw new ApiError(response.status, `Server returned an invalid response (Status: ${response.status}). Path might be wrong.`, text);
+    }
 
     if (!response.ok || !data.success) {
       throw new ApiError(
         response.status,
-        data.message || "An unexpected error occurred",
-        data.errors
+        data?.message || "An unexpected error occurred",
+        data?.errors
       );
     }
 
