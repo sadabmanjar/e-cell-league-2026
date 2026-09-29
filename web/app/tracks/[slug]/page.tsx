@@ -42,6 +42,7 @@ export default function TrackDetailPage({ params }: { params: Promise<{ slug: st
                   <span className="text-text-secondary">{track.title}</span>
                 </div>
                 <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-white">{track.title}</h1>
+                <p className="text-xl text-text-secondary max-w-3xl leading-relaxed">{track.tagline}</p>
               </div>
             </div>
 
@@ -60,7 +61,7 @@ export default function TrackDetailPage({ params }: { params: Promise<{ slug: st
               {/* Main Content */}
               <div className="lg:col-span-2 space-y-16">
 
-                <motion.div
+                {/* <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
@@ -73,7 +74,7 @@ export default function TrackDetailPage({ params }: { params: Promise<{ slug: st
                   <p className="text-text-secondary leading-relaxed bg-surface p-6 rounded-lg border border-border">
                     {track.preparation}
                   </p>
-                </motion.div>
+                </motion.div> */}
 
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
@@ -161,10 +162,10 @@ export default function TrackDetailPage({ params }: { params: Promise<{ slug: st
                         <p className="font-medium text-white">{track.duration}</p>
                       </div>
                     </div>
-                    <div className="pt-4 border-t border-border">
+                    {/* <div className="pt-4 border-t border-border">
                       <p className="text-xs text-text-secondary uppercase mb-1">Format</p>
                       <p className="font-medium text-white text-sm">{track.format}</p>
-                    </div>
+                    </div> */}
                     <div className="pt-4 border-t border-border">
                       <p className="text-xs text-text-secondary uppercase mb-1">Scoring</p>
                       <p className="font-medium text-white text-sm">{track.scoring}</p>

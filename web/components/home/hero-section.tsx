@@ -173,7 +173,7 @@ export function HeroSection() {
               <p className="text-xs text-text-secondary">Pitch to Operations</p>
             </FloatCard>
 
-            <FloatCard reduce={reduce} delay={2} className="right-[2%] bottom-[14%] min-w-[180px]">
+            {/* <FloatCard reduce={reduce} delay={2} className="right-[2%] bottom-[14%] min-w-[180px]">
               <p className="text-2xl font-bold text-white">
                 {SPOTS_FILLED} / {TOTAL_SPOTS}
               </p>
@@ -186,7 +186,7 @@ export function HeroSection() {
                   className="h-full rounded-full bg-gradient-to-r from-primary to-secondary"
                 />
               </div>
-            </FloatCard>
+            </FloatCard> */}
 
             {/* Center content */}
             <motion.div

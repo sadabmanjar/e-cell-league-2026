@@ -39,16 +39,16 @@ export default function TracksIndexPage() {
                     </CardHeader>
                     <CardContent className="flex-1">
                       <div className="flex flex-col gap-2 text-sm text-text-secondary">
-                        <div className="flex justify-between border-b border-border pb-1">
+                        {/* <div className="flex justify-between border-b border-border pb-1">
                           <span>Format:</span>
                           <span className="text-text-primary text-right max-w-[60%] truncate">{track.format}</span>
-                        </div>
+                        </div> */}
                         <div className="flex justify-between border-b border-border pb-1">
-                          <span>Team Size:</span>
+                          <span>Team Size: </span>
                           <span className="text-text-primary">{track.teamSize}</span>
                         </div>
                         <div className="flex justify-between border-b border-border pb-1">
-                          <span>Duration:</span>
+                          <span>Duration: </span>
                           <span className="text-text-primary">{track.duration}</span>
                         </div>
                       </div>

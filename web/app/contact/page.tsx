@@ -37,8 +37,8 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <p className="font-semibold text-white mb-1">General Inquiries</p>
-                    <a href="mailto:contact@ecell-league.com" className="text-sm text-primary hover:underline">
-                      contact@ecell-league.com
+                    <a href="mailto:ecell@rntu.ac.in" className="text-sm text-primary hover:underline">
+                      ecell@rntu.ac.in
                     </a>
                   </div>
                 </div>
@@ -48,15 +48,15 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <p className="font-semibold text-white mb-1">Registration Support</p>
-                    <a href="mailto:register@ecell-league.com" className="text-sm text-primary hover:underline">
-                      register@ecell-league.com
+                    <a href="mailto:vansh.super.18@gmail.com" className="text-sm text-primary hover:underline">
+                      vansh.super.18@gmail.com
                     </a>
                   </div>
                 </div>
               </div>
 
               {/* Contact Form */}
-              <div className="bg-surface border border-border rounded-xl p-8">
+              {/* <div className="bg-surface border border-border rounded-xl p-8">
                 <h2 className="text-xl font-bold text-white mb-6">Send a Message</h2>
                 <form className="space-y-5">
                   <div className="grid sm:grid-cols-2 gap-5">
@@ -123,7 +123,7 @@ export default function ContactPage() {
                     Send Message
                   </button>
                 </form>
-              </div>
+              </div> */}
             </div>
           </Container>
         </Section>
