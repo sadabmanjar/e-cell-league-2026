@@ -9,7 +9,7 @@ export function PaymentSummary() {
   const passType = watch("passType")
   const amount = passType === "3-pass" ? "₹1,000" : "₹1,300"
   
-  const qrUrl = process.env.NEXT_PUBLIC_PAYMENT_QR_URL || "https://placehold.co/400x400/png?text=Placeholder+QR\\n(Upload+Official+QR)";
+  const qrUrl = process.env.NEXT_PUBLIC_PAYMENT_QR_URL || "/QR/qr-code.jpeg";
 
   return (
     <div className="space-y-6">
