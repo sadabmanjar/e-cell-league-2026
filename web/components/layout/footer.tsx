@@ -51,7 +51,7 @@ export function Footer() {
 
                 {/* LinkedIn */}
                 <a
-                  href="YOUR_LINKEDIN_URL"
+                  href="https://www.linkedin.com/company/e&i-cell-rntu"
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="E-Cell RNTU LinkedIn"
@@ -186,7 +186,7 @@ export function Footer() {
                 href="tel:+917870367939"
                 className="text-text-secondary hover:text-primary transition-colors"
               >
-                +91 7870367939
+                +91 9693028104
               </a>
             </div>
           </div>
