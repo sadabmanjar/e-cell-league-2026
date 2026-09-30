@@ -54,7 +54,7 @@ export default function PrivacyPage() {
                 },
                 {
                   title: "7. Contact",
-                  content: "For any privacy-related queries, contact us at: contact@ecell-league.com",
+                  content: "For any privacy-related queries, contact us at: ecell@rntu.ac.in",
                 },
               ].map((section) => (
                 <div key={section.title} className="mb-8">

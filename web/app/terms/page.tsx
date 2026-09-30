@@ -66,7 +66,7 @@ export default function TermsPage() {
                 },
                 {
                   title: "10. Contact",
-                  content: "For queries regarding these Terms, contact: contact@ecell-league.com",
+                  content: "For queries regarding these Terms, contact: ecell@rntu.ac.in",
                 },
               ].map((section) => (
                 <div key={section.title} className="mb-8 p-5 bg-surface border border-border rounded-xl">

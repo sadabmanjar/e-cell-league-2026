@@ -49,7 +49,7 @@ const faqs = [
   },
   {
     q: "How do I contact the organizers?",
-    a: "For queries, please email us at contact@ecell-league.com. For urgent matters on event day, a point of contact will be shared with registered teams.",
+    a: "For queries, please email us at ecell@rntu.ac.in. For urgent matters on event day, a point of contact will be shared with registered teams.",
   },
 ]
 
@@ -93,10 +93,10 @@ export default function FAQPage() {
             <div className="max-w-3xl mx-auto mt-12 p-6 bg-primary/5 border border-primary/20 rounded-xl text-center">
               <p className="text-sm text-text-secondary mb-2">Still have questions?</p>
               <a
-                href="mailto:contact@ecell-league.com"
+                href="mailto:ecell@rntu.ac.in"
                 className="text-primary font-semibold hover:underline"
               >
-                contact@ecell-league.com
+                ecell@rntu.ac.in
               </a>
             </div>
           </Container>
