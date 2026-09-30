@@ -15,7 +15,7 @@ import { Container } from "@/components/ui/container"
 /* ------------------------------------------------------------------ */
 /* Config: change these to your real data                              */
 /* ------------------------------------------------------------------ */
-const REGISTRATION_DEADLINE = new Date("2026-10-22T23:59:59+05:30")
+const REGISTRATION_DEADLINE = new Date("2026-10-22T10:00:00+05:30")
 const SPOTS_FILLED = 8
 const TOTAL_SPOTS = 12
 
