@@ -30,7 +30,7 @@ export default function Home() {
         <PassesSection />
         <TimelineSection />
         <LeaderboardPreviewSection />
-        <FAQSection />
+        {/* <FAQSection /> */}
         <FinalCTASection />
       </main>
       

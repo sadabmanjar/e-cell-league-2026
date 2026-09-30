@@ -36,6 +36,10 @@ export interface TrackData {
     name: string
     phone: string
   }
+  coOwner2?: {
+    name: string
+    phone: string
+  }
 }
 
 export const tracksData: TrackData[] = [
@@ -91,8 +95,8 @@ export const tracksData: TrackData[] = [
     phone: "7869528561",
   },
   coOwner: {
-    name: "",
-    phone: "",
+    name: "Prithvi Nath",
+    phone: "7897971334",
   },
     shortDescription: "Present a high-growth startup idea to a panel of mock investors and defend your vision.",
     overview: "Anyone can have an idea. Few can sell one. The Pitch Lab is the League’s startup pitch competition, where participants turn a promising idea into a compelling business proposition backed by market research, a viable revenue model, and a clear go-to-market strategy. Participants will pitch their ideas and defend their business potential before a panel of judges.",
@@ -175,8 +179,12 @@ export const tracksData: TrackData[] = [
     phone: "8770473662",
   },
   coOwner: {
-    name: "",
-    phone: "",
+    name: "Arbaj hussain",
+    phone: "9304317721",
+  },
+  coOwner2: {
+    name: "Ashutosh Kumar",
+    phone: "9117515896",
   },
     shortDescription: "Build a working technical prototype to solve a specific problem statement within 6 hours.",
     overview: "CODEX is 6-hours hack-a-thon designed to challenge participants to transform ideas into functional solutions. Participants will be given a real-world problem statement and must develop a software or hardware solution within the time limit.\nThe challenge focuses on technical execution, innovation, practical utility, problem-solving, and the ability to build and deliver a working solution under pressure and within a strict time constraint.",
