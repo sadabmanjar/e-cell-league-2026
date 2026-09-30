@@ -2,6 +2,7 @@ import type { Request, Response, NextFunction } from "express";
 import { CompetitionService } from "./service.js";
 import { createCompetitionSchema, updateCompetitionSchema, createRoundSchema } from "./validation.js";
 import type { AuthRequest } from "../../middleware/auth.middleware.js";
+import codexProblemStatements from "./codex-problem-statements.json" with { type: "json" };
 
 export class CompetitionController {
   // ── Competitions ─────────────────────────────────────────────────────────────
@@ -128,4 +129,29 @@ export class CompetitionController {
       next(error);
     }
   }
+
+  static getCodexProblemStatements = async (_req: Request, res: Response) => {
+  try {
+    const now = new Date();
+    const revealAt = new Date(codexProblemStatements.revealAt);
+
+    if (now < revealAt) {
+      return res.json({
+        success: true,
+        revealed: false,
+        revealAt: codexProblemStatements.revealAt,
+        themes: [],
+      });
+    }
+
+    return res.json({
+      success: true,
+      revealed: true,
+      revealAt: codexProblemStatements.revealAt,
+      themes: codexProblemStatements.themes,
+    });
+  } catch (error) {
+    throw error;
+  }
+};
 }

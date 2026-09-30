@@ -8,6 +8,7 @@ const router = Router();
 // ── Public routes (consumed by web frontend) ──────────────────────────────────
 router.get("/", CompetitionController.getAll);
 router.get("/slug/:slug", CompetitionController.getBySlug);
+router.get("/codex/problem-statements", CompetitionController.getCodexProblemStatements);
 router.get("/:id", CompetitionController.getById);
 router.get("/:id/teams", CompetitionController.getRegisteredTeams);
 

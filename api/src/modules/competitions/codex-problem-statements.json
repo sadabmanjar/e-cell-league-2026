@@ -1,0 +1,42 @@
+{
+  "revealAt": "2026-10-22T10:00:00+05:30",
+  "themes": [
+    {
+      "id": "healthcare",
+      "name": "Healthcare",
+      "problemStatements": [
+        {
+          "id": "CODEX-H01",
+          "title": "Smart Patient Queue",
+          "description": "Build a solution that helps hospitals manage patient queues efficiently and reduce waiting time."
+        },
+        {
+          "id": "CODEX-H02",
+          "title": "Medicine Reminder",
+          "description": "Build a system that helps patients manage medicine schedules and receive timely reminders."
+        },
+        {
+          "id": "CODEX-H03",
+          "title": "Emergency Assistance",
+          "description": "Build a solution that helps users quickly request emergency assistance."
+        }
+      ]
+    },
+    {
+      "id": "education",
+      "name": "Education",
+      "problemStatements": [
+        {
+          "id": "CODEX-E01",
+          "title": "Campus Learning Hub",
+          "description": "Build a platform that helps students discover and organize useful learning resources."
+        },
+        {
+          "id": "CODEX-E02",
+          "title": "Student Collaboration",
+          "description": "Build a solution that helps students collaborate on academic projects and activities."
+        }
+      ]
+    }
+  ]
+}
