@@ -60,7 +60,7 @@ function Countdown() {
   return (
     <div className="flex flex-col items-center gap-3">
       <p className="text-xs uppercase tracking-[0.2em] text-text-secondary">
-        Registrations close in
+        Event in
       </p>
       <div className="flex gap-3">
         {units.map((u) => (
@@ -112,7 +112,7 @@ function FloatCard({
 }
 
 /* ------------------------------------------------------------------ */
-/* Hero                                                                */
+/* Hero                                                               */
 /* ------------------------------------------------------------------ */
 export function HeroSection() {
   const reduce = useReducedMotion()

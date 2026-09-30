@@ -218,7 +218,6 @@ export const GUIDELINES = [
   "Team Lead is the single point of contact between the team and organising committee.",
   "All work, performances, and submissions must be original and created solely by registered team members. Plagiarism results in track disqualification and a leaderboard penalty.",
   "No external coaching, prompting, or assistance during an active track.",
-  "Team members must be present at designated track area at least 10 minutes before assigned slot. No-shows result in 0 points for that track.",
   "Teams may not share answers, strategies, or materials with other teams during an active track.",
   "Judges' decisions on scoring and performance are final. Track results cannot be challenged once announced.",
   "Team composition is fixed after registration closes. Members cannot be swapped or added on event day.",

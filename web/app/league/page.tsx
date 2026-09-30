@@ -16,7 +16,7 @@ import { GUIDELINES, TIE_BREAKERS } from "@/data/league"
 export default function LeaguePage() {
   const rules = GUIDELINES.map((rule, i) => ({
     value: `r${i}`,
-    title: `Guideline ${i + 1}`,
+    title: `Rules ${i + 1}`,
     content: rule,
   }));
 
@@ -46,13 +46,13 @@ export default function LeaguePage() {
               <div>
                 <SectionHeading 
                   title="What is E-Cell League?" 
-                  description="The E-Cell League is a comprehensive, multi-track collegiate competition designed to discover, challenge, and elevate the best student entrepreneurs in the country."
+                  description="The E-Cell League is a first-of-its-kind inter-college competition that brings Entrepreneurship Cells from different institutes onto one common scoreboard. Organised by the AIC-RNTU Foundation together with the E&I Cell of RNTU, Bhopal, it puts participating E-Cells head-to-head across five tracks running through a single day. Every point earned feeds into a live leaderboard, and by the end, one E-Cell walks away as champion."
                 />
                 <p className="text-text-secondary leading-relaxed mb-6">
-                  E-Cell League is a one-day multi-track entrepreneurship competition exclusively for 12 registered E-Cell teams. Points are earned across tracks, aggregated on a live leaderboard, and the team topping the standings wins the League Championship.
+But the League isn't just about who wins. At its core, it's a platform to promote entrepreneurship among students, and to identify and support the next generation of startups and leaders as they take shape on campus.  
                 </p>
                 <p className="text-text-secondary leading-relaxed">
-                  All tracks run in parallel, meaning team composition and track assignment strategy is vital.
+                  Our vision is to build a strong E-Cell community, that connects student entrepreneurs with real incubation and funding opportunities. Season 1 brings together E-Cells from Bhopal, Jabalpur and Indore, and we hope to grow this into an annual, state-wide fixture across Madhya Pradesh.
                 </p>
               </div>
               <div className="relative">

@@ -17,8 +17,8 @@ export function LeagueJourney() {
     { title: "Registration", desc: "Colleges secure their League Passes and onboard their E-Cells." },
     { title: "Track Selection", desc: "E-Cells assign teams to the 5 competition tracks." },
     { title: "Competition Phase", desc: "Teams compete in hackathons, pitches, and quizzes to secure a Competition Result." },
-    { title: "Point Conversion", desc: "Competition Results are converted into Official League Points for the college." },
-    { title: "Overall Leaderboard", desc: "League Points determine the college's Overall Leaderboard Position." },
+    { title: "Point Conversion", desc: "Competition Results are converted into Official League Points for the E-Cell." },
+    { title: "Overall Leaderboard", desc: "League Points determine the E-Cell's Overall Leaderboard Position." },
     { title: "Crowning the Champion", desc: "The college with the most points wins the E-Cell League Cup." }
   ]
 

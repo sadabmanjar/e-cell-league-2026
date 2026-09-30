@@ -13,7 +13,7 @@ export class ApiError extends Error {
     super(message);
     this.status = status;
     this.data = data;
-    this.name = "ApiError";
+    this.name = "ApiError"; 
   }
 }
 
