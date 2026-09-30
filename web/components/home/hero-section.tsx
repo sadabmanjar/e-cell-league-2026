@@ -15,6 +15,7 @@ import { Container } from "@/components/ui/container"
 /* ------------------------------------------------------------------ */
 /* Config: change these to your real data                              */
 /* ------------------------------------------------------------------ */
+const EVENT_DATE = "22 October 2026"
 const REGISTRATION_DEADLINE = new Date("2026-10-22T10:00:00+05:30")
 const SPOTS_FILLED = 8
 const TOTAL_SPOTS = 12
@@ -58,6 +59,7 @@ function Countdown() {
   ]
 
   return (
+    
     <div className="flex flex-col items-center gap-3">
       <p className="text-xs uppercase tracking-[0.2em] text-text-secondary">
         Event in
@@ -77,6 +79,9 @@ function Countdown() {
           </div>
         ))}
       </div>
+      <p className="mt-1 text-base sm:text-lg font-semibold text-white">
+  {EVENT_DATE}
+</p>
     </div>
   )
 }
